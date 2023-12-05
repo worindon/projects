@@ -19,11 +19,11 @@ int main() {
     int a, b, n;
 
     // Ввод значений a, b и n
-    std::cout << "Введите значения a, b и n (через пробел): ";
+    std::cout << "Enter values for a, b, and n (separated by space): ";
     std::cin >> a >> b >> n;
 
     // Вывод разложения бинома Ньютона
-    std::cout << "Разложение бинома (" << a << "x + " << b << "y)^" << n << ": ";
+    std::cout << "Expansion of (" << a << "x + " << b << "y)^" << n << ": ";
 
     for (int k = 0; k <= n; ++k) {
         unsigned long long coefficient = binomialCoefficient(n, k);
@@ -32,21 +32,33 @@ int main() {
         }
 
         if (k > 0) {
-            std::cout << "x";
-            if (k > 1) {
-                std::cout << "^" << k;
+            if (a != 0) {
+                std::cout << "x";
+                if (k > 1) {
+                    std::cout << "^" << k;
+                }
+            }
+            if (b != 0) {
+                if (a != 0) {
+                    std::cout << " + ";
+                }
+                std::cout << coefficient;
+                if (k > 0) {
+                    std::cout << "y";
+                    if (n - k > 1) {
+                        std::cout << "^" << (n - k);
+                    }
+                }
             }
         }
-
-        if (n - k > 0) {
-            std::cout << "y";
-            if (n - k > 1) {
-                std::cout << "^" << (n - k);
-            }
+        else {
+            std::cout << "1";
         }
 
         if (k < n) {
-            std::cout << " + ";
+            if (a != 0 || b != 0) {
+                std::cout << " + ";
+            }
         }
     }
 
