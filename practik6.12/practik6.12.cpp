@@ -20,7 +20,7 @@ long long func2(int x) {
 
 	}
 	return a / b;
-	}
+}
 
 double func3(int n) {
 	int a = n / 100;
