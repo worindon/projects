@@ -20,8 +20,9 @@ long long func2(int x) {
 
 	}
 	return a / b;
+	}
 
-}double func3(int n) {
+double func3(int n) {
 	int a = n / 100;
 	int b = n % 100 / 10;
 	int c = n % 10;
@@ -38,6 +39,7 @@ long long func2(int x) {
 	}
 
 }
+
 double func4(int arr[]) { //6-сте завдання
 	double res=0;
 	for (int i = 0; i < 19; i++) {
