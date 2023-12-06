@@ -41,8 +41,7 @@ int func3(int n) {
 	}
 
 }
-
-auto func4(int arr[]) {
+int func4(int arr[]) { //6-сте завдання
 	double res=0;
 	for (int i = 0; i < 20; i++) {
 		res += arr[i];
