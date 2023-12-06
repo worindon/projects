@@ -13,7 +13,6 @@ int func1(int a) {
 
 long long func2(int x) {
 	long long a = 1, b = 1;
-	 int k = 1;	
 	for (int i = 2; i <= 64; i *= 2) {
 		a *= x - i;
 	}
