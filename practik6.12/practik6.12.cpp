@@ -43,10 +43,10 @@ int func3(int n) {
 }
 int func4(int arr[]) { //6-сте завдання
 	double res=0;
-	for (int i = 0; i < 20; i++) {
+	for (int i = 0; i < 19; i++) {
 		res += arr[i];
 	}
-	return res / 20;
+	return res / 19;
 
 }
 
