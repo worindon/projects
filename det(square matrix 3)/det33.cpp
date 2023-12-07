@@ -85,7 +85,8 @@ int main()
 	cout << endl;
 
 	long  long res = a[0][0];
-	for (int i = 1, j = 1; i < n; i++, j++) {
+	for (int i = 1, j = 1; i < n; i++, j++) 
+	{
 		res *= a[i][j];
 
 	}
