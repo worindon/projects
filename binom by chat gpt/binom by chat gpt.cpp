@@ -18,7 +18,7 @@ unsigned long long binomialCoefficient(int n, int k) {
 int main() {
     int a, b, n;
 
-    // Ввод значений a, b и n
+    // Ввод значений a, b и n через пробел
     std::cout << "Enter values for a, b, and n (separated by space): ";
     std::cin >> a >> b >> n;
 
