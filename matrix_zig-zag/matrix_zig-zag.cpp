@@ -2,62 +2,73 @@
 
 #include <iostream>
 using namespace std;
-int main()
+
+
+void zig_zag_matrix()
 {
 	int arr[7][7];
-	arr[0][6] = 1;
-	int t = 2;
-	int a = 1, j = 4;	
-	for(int q=0; q<3;q++)
-	{	
-		for (int d = a, r = 6; d >= 0; t++)
-		{
-			arr[d][r] = t;
-			d--; r--;
-		}
-		a+=2;
-		for (int d = 0, r = j; r <= 6;t++)
-		{
-			arr[d][r] = t;
-			d++; r++;
-		}
-		j-=2;
-	}
+	int t = 1;
+	bool flag = true;
+	int a = 0; int  b = 6; int k = 1;
+	int d = 6; int m = 6; int e = 0;
 
-	  int b = 5;
-	  int i = 2;
-	for(int q = 0; q<4; q++)
+	for (int i = 0; i < 11; i++)
 	{
-		for (int d = 6, r = b; r >= 0; t++)
+
+		for (int q = a, r = b; r <= m; q++, r++, t++)
 		{
-			arr[d][r] = t;
-			d--; r--;
+			arr[q][r] = t;
 		}
-		b-=2;
-		for (int d = i, r = 0; d <= 6; t++)
+		for (int q = k, r = d; q >= e; q--, r--, t++)
 		{
-			arr[d][r] = t;
-			d++; r++;
+			arr[q][r] = t;
 		}
-		i += 2;
+		if (flag == true) {
+			b -= 2; k += 2;
+		}
+		else
+		{
+			a += 2; d -= 2;
+			m -= 2; e += 2;
+
+		}
+
+		if (flag == true and t > 20)
+		{
+			d = 5; k = 6;
+			b = 0; e = 1;
+			flag = false;
+		}
+
+
 	}
 
 
 
-	for(int i=0; i<7; i++)
+
+
+
+	for (int i = 0; i < 7; i++)
 	{
 		for (int j = 0; j < 7; j++)
 		{
-
-			cout <<" "<< arr[i][j];
+			cout << " ";
 			if (arr[i][j] < 10)
 			{
 				cout << " ";
 			}
-			
+			cout << arr[i][j];
 		}
 		cout << endl;
 	}
+}
+
+
+
+int main()
+{
+	
+	zig_zag_matrix();
 
 
 
