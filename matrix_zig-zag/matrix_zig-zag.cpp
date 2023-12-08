@@ -14,7 +14,6 @@ void zig_zag_matrix()
 
 	for (int i = 0; i < 11; i++)
 	{
-
 		for (int q = a, r = b; r <= m; q++, r++, t++)
 		{
 			arr[q][r] = t;
@@ -23,6 +22,7 @@ void zig_zag_matrix()
 		{
 			arr[q][r] = t;
 		}
+
 		if (flag == true) {
 			b -= 2; k += 2;
 		}
@@ -39,15 +39,7 @@ void zig_zag_matrix()
 			b = 0; e = 1;
 			flag = false;
 		}
-
-
 	}
-
-
-
-
-
-
 	for (int i = 0; i < 7; i++)
 	{
 		for (int j = 0; j < 7; j++)
@@ -65,12 +57,13 @@ void zig_zag_matrix()
 
 
 
+
 int main()
 {
 	
 	zig_zag_matrix();
+	cout << endl;
 
-
-
+	system("pause");
 }
 
