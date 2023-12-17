@@ -91,9 +91,12 @@ int main()
 
 	for (int i = 0, j = 0; i < n; i++, j++)
 	{
-		cout << a[i][j] << " * ";
+		cout << a[i][j];
+		if (j < n - 1) {
+			cout << " * ";
+		}
 	}
-
+	cout << endl;
 	system("pause");
 }
 
