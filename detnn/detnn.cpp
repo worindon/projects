@@ -7,69 +7,91 @@ using namespace std;
 
 
 
-vector<vector<double>> func(vector<vector<double>>& vec, const int n, int m)
-{
+void det(vector<vector<double>>& matrix) {
 
-	int t = m + 1;
-	int b = m + 1;
-	for (b; b < n; b++) {
-		double k = -1 * vec[t][m] / vec[m][m];
-		for (int i = 0; i < n; i++)
-		{
+	for (int r = 0; r < matrix.size(); r++) {
 
-			vec[b][i] += k * vec[m][i];
+		for (int i = r+1; i < matrix.size(); i++) {
 
+			double k = matrix[i][r] / matrix[r][r];
+
+			for (int j = r; j < matrix.size(); j++) {
+
+				matrix[i][j] -= matrix[r][j] * k;
+				
+			}			
 		}
-		t++;
+	}	
+}
+
+
+bool qwest() {
+
+	char i;
+	do {
+		scanf_s("%c", &i, sizeof(i));
+	} while (!(i == 'Y' || i == 'N' || i == 'y' || i == 'n'));
+
+	if (i == 'y' || i == 'Y') return 1;
+	return 0;
+
+}
+
+
+void input_matrix(vector<vector <double>> &matrix) {
+	for (int i = 0; i < matrix.size(); i++)
+	{
+		for (int j = 0; j < matrix.size(); j++)
+		{
+			cin >> matrix[i][j];
+		}
+	}
+}
+
+
+void print_matrix(vector<vector <double>> matrix) {
+
+	for (int i = 0; i < matrix.size(); i++)
+	{
+		cout << "\t";
+		for (int j = 0; j < matrix.size(); j++)
+		{
+			cout << matrix[i][j] << " ";
+		}
+		cout << endl;
 	}
 
-
-
-	return vec;
 }
 
 
 
+void cons_clear() {
+	cout << "\033[2J\033[1;1H";
 
-int main()
+}
+
+int main(){
 
 
-{
-	cout << "WWrite size of your square matrix and them write your numbers" << endl;
+
+	cout << "Write size of your square matrix and them write your numbers" << endl;
 	int n;
 	cin >> n;
 	vector < vector <double> > a(n, vector <double>(n));
 
 
 
-	for (int i = 0; i < n; i++)
-	{
-		for (int j = 0; j < n; j++)
-		{
-			cin >> a[i][j];
-		}
-	}
-	cout << endl << "-----------------------------------------" << endl << endl << endl;
-	for (int i = 0; i < n; i++)
-	{
-		cout << "\t";
-		for (int j = 0; j < n; j++)
-		{
-			cout << a[i][j] << " ";
-		}
-		cout << endl;
-	}
-	cout << "-----------------------------------------" << endl << endl << endl;
+	input_matrix(a);
 
+	cout << endl << endl << endl << endl;
+	
+	print_matrix(a);
 
-
-
-	int m = 0;
-	for (int i = 0; i <= n; i++)
-	{
-		a = func(a, n, m);
-		m++;
-	}
+	cout << endl << endl << endl << endl;
+	
+	det(a);
+	
+	
 	for (int i = 0; i < n; i++)
 	{
 		cout << "\t";
@@ -81,8 +103,8 @@ int main()
 	}
 	cout << endl;
 
-	long  long res = a[0][0];
-	for (int i = 1, j = 1; i < n; i++, j++) {
+	long  long res = 1;
+	for (int i = 0, j = 0; i < n; i++, j++) {
 		res *= a[i][j];
 
 	}
@@ -96,6 +118,7 @@ int main()
 			cout << " * ";
 		}
 	}
+	
 	cout << endl;
 	system("pause");
 }
