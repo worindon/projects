@@ -19,7 +19,7 @@ int main()
         cout << " | ";
         for(int b=0; b<17; b++)
         {
-            int k = ((a * a) + a + (2 * b)) % 17;
+            int k = ((a * a) + a + ) % 17;
             
           if(k<10)
           {
