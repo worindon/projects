@@ -68,7 +68,7 @@ void input_matrix(vector<vector <double>>& matrix) {
 
 bool matrix_triangle_check(vector<vector <double>>& matrix) {
 
-	double k = matrix.size();
+	int k = matrix.size();
 
 	for (int i = 1; i < k; i++) {
 
@@ -107,6 +107,23 @@ int matrix_check_line(vector<vector <double>>& matrix) {
 
 }
 
+bool matrix_column_check(vector<vector <double>>& matrix, int num) {
+	
+
+	if (num >= 0 and num < matrix.size()) {
+
+
+		for (int i = 0; i < matrix.size(); i++) {
+
+			if (matrix[i][num]) return 1;
+
+		}
+	}
+
+	return 0;
+
+}
+
 void matrix_line_swap(vector<vector <double>>& matrix, int checker) {
 
 	int b, size = matrix.size();
@@ -138,13 +155,6 @@ void matrix_line_swap(vector<vector <double>>& matrix, int checker) {
 
 void line_swaper(vector<vector <double>>& matrix, int param1, int param2 ){
 
-	int size = matrix.size();
-
-	
-	
-	
-	
-
 	for (int i = 0; i < matrix.size(); i++) {
 
 		swap(matrix[param1][i], matrix[param2][i]);
@@ -158,26 +168,26 @@ void line_swaper(vector<vector <double>>& matrix, int param1, int param2 ){
 	//print_matrix(matrix);
 
 }
-void hand_swap(vector<vector <double>>& matrix) {
-
-	int checker = matrix_diagonal_check(matrix);
-
-
-	if (checker != 0 && paramsize > 2) {
-
-		cout << endl << checker << "-й элемент главной диагонали равен 0, введите номер строки с которой хотите поменять даную" << endl;
-
-
-
-		matrix_line_swap(matrix, checker);
-
-	}
-
-
-
-	if (matrix_diagonal_check(matrix)) hand_swap(matrix);
-
-}
+//void hand_swap(vector<vector <double>>& matrix) {
+//
+//	int checker = matrix_diagonal_check(matrix);
+//
+//
+//	if (checker != 0 && paramsize > 2) {
+//
+//		cout << endl << checker << "-й элемент главной диагонали равен 0, введите номер строки с которой хотите поменять даную" << endl;
+//
+//
+//
+//		matrix_line_swap(matrix, checker);
+//
+//	}
+//
+//
+//
+//	if (matrix_diagonal_check(matrix)) hand_swap(matrix);
+//
+//}
 
 
 
@@ -213,26 +223,33 @@ void determ(vector<vector<double>>& matrix, bool param = 1) {
 
 	for (int r = 0; r < size; r++) {
 	
-		if (matrix_diagonal_check(matrix)) {
+		if (matrix_diagonal_check(matrix) ) {
 
 			int num = matrix_diagonal_check(matrix) - 1;
 
-			if (!matrix_check_line(matrix)) {
+			if (matrix_check_line(matrix) == 0) {    //весь рядок 0
 
-				cout << endl << "det = 0" << endl;
+				cout << "check";
 
-				return;
+				if (matrix_column_check(matrix, num) == 0) {
 
-				
+					cout << endl << "det = 0" << endl;
+
+					detetrminant = 0;
+
+					return;
+				}
 
 			}
-			else {
+			else {   
+
+				print_matrix(matrix);
 
 				int temp = matrix_check_line(matrix) - 1;
-				cout <<endl<< "запуск свапера\n"<<num<<"\n"<<temp<<"\n" << endl;
+				cout <<endl<< "запуск свапера\t"<<num+1<<"   "<<temp+1<<"\n" << endl;
 				line_swaper(matrix, num, temp);
 
-
+				determ(matrix);
 				print_matrix(matrix);
 
 				
@@ -241,7 +258,7 @@ void determ(vector<vector<double>>& matrix, bool param = 1) {
 		}
 		else {
 
-			cout << "исключение 2";
+			cout << "исключение 2"<<endl;
 			for (int i = r + 1; i < size; i++) {
 
 				double k = matrix[i][r] / matrix[r][r];
@@ -253,69 +270,32 @@ void determ(vector<vector<double>>& matrix, bool param = 1) {
 				}
 			}				
 		}		
-	}
-	
-	if (param) {
+	}	
+}
 
-			for (int i = 0; i < size; i++) {
+void determ_res(vector<vector<double>>& matrix) {
 
-				detetrminant *= matrix[i][i];
+	int size = matrix.size();
 
-			}
+	if (detetrminant) {
+
+		for (int i = 0; i < size; i++) {
+
+			detetrminant *= matrix[i][i];
+
 		}
+	}
 
-		cout <<endl<< " det  = " << detetrminant<<endl;
-	
+	cout << endl << " det  = " << detetrminant << endl;
+
 }
 
 
-bool matrix_addiction(vector<vector <double>>& matrix) {
-
-	vector<vector <double>> CheckMatrix = matrix;
-
-	int par = CheckMatrix.size();
-	bool fl = 0;
-
-	bool* arr = new bool[par];
-
-	determ(CheckMatrix, 0);
-
-	print_matrix(CheckMatrix);
-
-
-	for (int i = 0; i < par; i++) {
-
-		int sum = 0;
-
-		for (int j = 0; j < par; j++) {
-
-			cout << CheckMatrix[i][j];
-			sum += my_abs(CheckMatrix[i][j]);
-			
-		}
-		cout << endl;
-		if (sum) arr[i] = 1;
-		else
-			arr[i] = 0;
-
-	}
-
-	for (int i = 0; i < par; i++) {
-		if (arr[i]) return 0;
-	}
-
-	
-
-}
 
 
 void main() {
 
 	setlocale(LC_ALL, "ru");
-
-	
-
-
 
 	cout << "Введите размер матрицы а затем сами элементы матрицы ";
 
@@ -326,6 +306,10 @@ void main() {
 	input_matrix(matrix1);	
 
 	determ(matrix1);
+
+	//matrix_column_check(matrix1);
+
+	determ_res(matrix1);
 
 	print_matrix(matrix1);
 
