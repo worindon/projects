@@ -46,7 +46,63 @@ void print_matrix(vector<vector <double>> matrix) {
 	}
 
 }
+void determ(vector<vector<double>>& matrix, bool param = 1) {
 
+	int size = matrix.size();
+
+	
+
+	for (int r = 0; r < size; r++) {
+	
+		if (matrix_diagonal_check(matrix) ) {
+
+			int num = matrix_diagonal_check(matrix) - 1;
+
+			if (matrix_check_line(matrix) == 0) {    //весь рядок 0
+
+				cout << "check";
+
+				if (matrix_column_check(matrix, num) == 0) {
+
+					cout << endl << "det = 0" << endl;
+
+					detetrminant = 0;
+
+					return;
+				}
+
+			}
+			else {   
+
+				print_matrix(matrix);
+
+				int temp = matrix_check_line(matrix) - 1;
+				cout <<endl<< "запуск свапера\t"<<num+1<<"   "<<temp+1<<"\n" << endl;
+				line_swaper(matrix, num, temp);
+
+				determ(matrix);
+				print_matrix(matrix);
+
+				
+
+			}
+		}
+		else {
+
+			cout << "исключение 2"<<endl;
+			for (int i = r + 1; i < size; i++) {
+
+				double k = matrix[i][r] / matrix[r][r];
+
+				for (int j = r; j < size; j++) {
+
+					matrix[i][j] -= matrix[r][j] * k;
+
+				}
+			}				
+		}		
+	}	
+}
 void input_matrix(vector<vector <double>>& matrix) {
 	
 
@@ -81,18 +137,6 @@ bool matrix_triangle_check(vector<vector <double>>& matrix) {
 
 	return 0;
 }
-
-int matrix_diagonal_check(vector<vector <double>>& matrix) {
-
-	for (int i = 0; i < matrix.size(); i++) {
-
-		if (!(matrix[i][i])) return i + 1;
-
-	}
-
-	return 0;
-}
-
 int matrix_check_line(vector<vector <double>>& matrix) {
 
 	int num = matrix_diagonal_check(matrix) - 1;
@@ -106,6 +150,18 @@ int matrix_check_line(vector<vector <double>>& matrix) {
 	return 0;	
 
 }
+int matrix_diagonal_check(vector<vector <double>>& matrix) {
+
+	for (int i = 0; i < matrix.size(); i++) {
+
+		if (!(matrix[i][i])) return i + 1;
+
+	}
+
+	return 0;
+}
+
+
 
 bool matrix_column_check(vector<vector <double>>& matrix, int num) {
 	
@@ -215,63 +271,7 @@ vector <vector <double>>  multiplication_matrix(vector<vector <double>>& matrix1
 }
 
 
-void determ(vector<vector<double>>& matrix, bool param = 1) {
 
-	int size = matrix.size();
-
-	
-
-	for (int r = 0; r < size; r++) {
-	
-		if (matrix_diagonal_check(matrix) ) {
-
-			int num = matrix_diagonal_check(matrix) - 1;
-
-			if (matrix_check_line(matrix) == 0) {    //весь рядок 0
-
-				cout << "check";
-
-				if (matrix_column_check(matrix, num) == 0) {
-
-					cout << endl << "det = 0" << endl;
-
-					detetrminant = 0;
-
-					return;
-				}
-
-			}
-			else {   
-
-				print_matrix(matrix);
-
-				int temp = matrix_check_line(matrix) - 1;
-				cout <<endl<< "запуск свапера\t"<<num+1<<"   "<<temp+1<<"\n" << endl;
-				line_swaper(matrix, num, temp);
-
-				determ(matrix);
-				print_matrix(matrix);
-
-				
-
-			}
-		}
-		else {
-
-			cout << "исключение 2"<<endl;
-			for (int i = r + 1; i < size; i++) {
-
-				double k = matrix[i][r] / matrix[r][r];
-
-				for (int j = r; j < size; j++) {
-
-					matrix[i][j] -= matrix[r][j] * k;
-
-				}
-			}				
-		}		
-	}	
-}
 
 void determ_res(vector<vector<double>>& matrix) {
 

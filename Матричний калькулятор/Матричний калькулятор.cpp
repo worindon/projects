@@ -62,9 +62,7 @@ public:
 
 	void check() {
 
-		checkCols();
-		checkLine();
-		determinant();
+		triangle();
 		detRess();
 	}
 
@@ -73,150 +71,143 @@ public:
 
 private:
 
-	int det = 1;
+	double det = 1;
 	int rows, cols;
 	vector < vector < double >> array;
 
 
-	bool triangle() {
+		bool triangle() {
 
 		int k = array.size();
 
 		for (int i = 1; i < k; i++) {
 
-			for (int j = 0; j <= i; j++) {
+			for (int j = 0; j < i; j++) {
 
-				if (array[i][j]) return 1;
-
-			}
-		}
-
-		return 0;
-	}
-
-	int zeroInDiagonal() {
-
-		for (int i = 0; i < array.size(); i++) {
-
-			if (!(array[i][i])) return i + 1;
-
-		}
-
-		return 0;
-	}
-
-	int checkLine(int num) {
-
-		num--;
-
-		for (int i = 0; i < array.size(); i++) {
-
-			if (array[num][i]) return i + 1;
-
-		}
-
-		return 0;
-
-	}
-
-	void lineSwap(int param1, int param2) {
-
-		for (int i = 0; i < array.size(); i++) {
-
-			swap(array[param1][i], array[param2][i]);
-
-		}
-
-		det *= -1;
-
-		//cons_clear();
-
-		//print_matrix(matrix);
-
-	}
-
-	bool checkCols() {
-
-		
-		int num = zeroInDiagonal() - 1;
-		if (num < 0) num = 0;
-		cout << "colstart" << endl;
-
-		for (int i = 0; i < array.size(); i++) {
-			 
-			if (array[i][num]) {
-				cout << "col"<<endl;
-				return 0;
-			}
-		}
-		
-		return 1;	
-	}
-
-	bool checkLine() {
-
-		int num = zeroInDiagonal() - 1;
-		if (num < 0) num = 0;
-		cout << "linestart" << endl;
-
-		for (int i = 0; i < array.size(); i++) {
-
-			if (array[num][i]) {
-				cout << "line";
-				return 0;
-			}
-		}
-
-		return 1;
-	}
-
-	void detRess() {
-		for (int i = 0; i < rows; i++) {
-
-			det *= array[i][i];
-			
-		}
-		cout << endl << " Deterrminant = " << det << endl;
-	}
-
-
-	void determinant() {
-
-
-
-
-		for (int r = 0; r < rows; ++r) {
-			for (int i = r + 1; i < rows; ++i) {
-
-				double k = array[i][r] / array[r][r];
-
-				for (int j = r; j < cols; ++j) {
-
-					array[i][j] -= array[r][j] * k;
+				if (array[i][j] != 0) {
+					//cout << "Nontr" <<i<<" "<<j<< endl;
+					//	print();
+					return 0;
 
 				}
 			}
-			cout << endl;
-			print();
-
+			
 		}
 		
+			//cout << "triangl" << endl;
+			//print();
+			return 1;
 
 
-	}  
+	}
+
+		int zeroInDiagonal() {
+
+			for (int i = 0; i < array.size(); i++) {
+
+				if (!(array[i][i])) return i + 1;
+
+			}
+
+			return 0;
+		}
+
+		int colcheck(int param){
+			int i = 0;
+			if (param) i++;
+			for (; i < rows; i++) {
+
+				if (array[i][param]) return i+1;
+
+			}
+			return 0;
+		
+		
+		}
+
+		int checkLine(int num) {
+
+			for (int i = 0; i < cols; i++) {
+
+				if (array[num][i]) return i+1;
+
+			}
+			return 0;
+		}
+
+		void lineSwap(int param1, int param2) {
+			cout << "Запуск свапера " << param1+1 << " " << param2+1 << endl;
 
 
-			 
+
+			for (int i = 0; i < array.size(); i++) {
+
+				swap(array[param1][i], array[param2][i]);
+
+			}
+
+			det *= -1;
+
+			
+			print(); 
+
+		}
+
+
+
+		void detRess() {
+
+			int num = determinant();
+
+			for (int i = 0; i < rows; i++) {
+
+				det *= array[i][i];
+
+			}
+			cout << endl << " Deterrminant = " << det * num<< endl;
+		}
+
+
+		bool  determinant() {
+			while (!triangle()) {
+
+
+				for (int r = 0; r < rows; r++) {
+					for (int i = r+1; i < rows; i++) {
+						if (array[r][r] == 0) {
+
+							int num = r;
+							int temp = checkLine(r)-1;
+							int temp2 = colcheck(r)-1;
+							if (checkLine(r) == 0) {cout << " ?";return 0;}
+							if (colcheck(r) == 0)  {cout << " !";return 0;}
+							lineSwap(num, temp);
+
+						}
+
+						double k = array[i][r] / array[r][r];
+
+
+						for (int j = 0; j < rows; j++) {
+
+							array[i][j] -= array[r][j] * k;
+
+
+						}
+					}
+				}
+			}
+			return 1;
+		}
 
 
 
 
 
 	
+
+
 };
-
-
-
 
 void   foo(int a) {
 
@@ -230,7 +221,7 @@ int main()
 
 	setlocale(LC_ALL, "ru");
     
-	Matrix A(3, 3);
+	Matrix A(4, 4);
 
 	A.input();A.print();
 	A.check();
@@ -239,7 +230,7 @@ int main()
 	A.print();
 	 
 	
-
+	
 
 
    
