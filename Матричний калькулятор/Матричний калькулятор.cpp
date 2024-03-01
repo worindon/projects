@@ -136,7 +136,7 @@ private:
 
 		void lineSwap(int param1, int param2) { //свапер строчек
 			cout <<endl<< "Запуск свапера " << param1 << " " << param2 << endl;
-
+			print();
 			for (int i = 0; i < array.size(); i++) {
 
 				swap(array[param1][i], array[param2][i]);
@@ -145,9 +145,9 @@ private:
 
 			det *= -1; //при замене сточек меняем знак 
 
-			cout << "---------------------"<<endl;
+			cout << "->------->----->----->---"<<endl;
 			print(); 
-			cout << "---------------------" << endl<<endl;
+			cout << "-------------------------" << endl<<endl;
 		}
 
 
@@ -177,7 +177,10 @@ private:
 					for (int i = r+1; i < rows; i++) {
 						ST:
 						if (array[r][r] == 0) { //делить на 0 нельзя
-														
+							cout << endl << "0" << endl;
+							print();
+							cout << endl <<r<<" "<< "0" << endl;
+							cout << endl << "_" << endl;
 							int temp = checkLine(r)-1; //находим индекс ненулевого ел. в строке
 							int temp2 = colcheck(r)-1; //находим индекс ненулевого ел. в столбике
 							
