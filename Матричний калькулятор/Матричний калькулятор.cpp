@@ -14,6 +14,10 @@ template <typename T>  T abs(T a) {
 
 }
 
+void cons_clear() {
+	cout << "\033[2J\033[1;1H";
+
+}
 
 
 
@@ -49,9 +53,9 @@ public:
 
 		cout << endl << " Матрица " << array.size() << " на " << array[0].size() << endl;
 
-		for (int i = 0; i < array.size(); i++) {
+		for (int i = 0; i < rows; i++) {
 			cout << "\t";
-			for (int j = 0; j < array[0].size(); j++) {
+			for (int j = 0; j < cols; j++) {
 
 				cin >> array[i][j];
 			}
@@ -65,13 +69,10 @@ public:
 		triangle();
 		detRess();
 	}
-
-
-	;
-
+;
 private:
 
-	double det = 1;
+	long double det = 1;
 	int rows, cols;
 	vector < vector < double >> array;
 
@@ -136,9 +137,7 @@ private:
 		}
 
 		void lineSwap(int param1, int param2) {
-			cout << "Запуск свапера " << param1+1 << " " << param2+1 << endl;
-
-
+			cout << "Запуск свапера " << param1 << " " << param2 << endl;
 
 			for (int i = 0; i < array.size(); i++) {
 
@@ -148,9 +147,9 @@ private:
 
 			det *= -1;
 
-			
+			cout << "---------------------";
 			print(); 
-
+			cout << "---------------------" << endl<<endl;
 		}
 
 
@@ -159,29 +158,33 @@ private:
 
 			int num = determinant();
 
-			for (int i = 0; i < rows; i++) {
+			if (num) {
 
-				det *= array[i][i];
+				for (int i = 0; i < rows; i++) {
 
+					det *= array[i][i];
+
+				}
 			}
-			cout << endl << " Deterrminant = " << det * num<< endl;
+
+			cout << endl << " Determinant = " << det * num<< endl;
 		}
 
 
 		bool  determinant() {
 			while (!triangle()) {
 
-
 				for (int r = 0; r < rows; r++) {
 					for (int i = r+1; i < rows; i++) {
+						ST:
 						if (array[r][r] == 0) {
-
-							int num = r;
+														
 							int temp = checkLine(r)-1;
 							int temp2 = colcheck(r)-1;
-							if (checkLine(r) == 0) {cout << " ?";return 0;}
-							if (colcheck(r) == 0)  {cout << " !";return 0;}
-							lineSwap(num, temp);
+							if (temp  == -1) {cout << " ?";return 0;}
+							if (temp2 == -1) {cout << " !";return 0;}
+							lineSwap(r, temp);
+							goto ST;
 
 						}
 
@@ -223,12 +226,15 @@ int main()
     
 	Matrix A(4, 4);
 
-	A.input();A.print();
+	A.input();
+	cons_clear();
+	system("pause");
+	A.print();
 	A.check();
 
 	cout << endl;
 	A.print();
-	 
+	system("pause");
 	
 	
 
