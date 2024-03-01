@@ -55,10 +55,10 @@ double determinant(const std::vector<std::vector<double>>& matrix) {
 int main() {
     setlocale(LC_ALL, "ru");
     // Пример использования
-    std::vector<std::vector<double>> matrix = {{1, 4, 0, 1},
-                                               {1, 4, 3, 0},
-                                               {0, 2, 0, 9},
-                                               {1, 0, 1, 2}};
+    std::vector<std::vector<double>> matrix = {{0, 1, 0, 0},
+                                               {1, 0, 0, 0},
+                                               {0, 0, 0, 1},
+                                               {0, 0, 1, 0}};
 
     std::cout << "Исходная матрица:" << std::endl;
     printMatrix(matrix);

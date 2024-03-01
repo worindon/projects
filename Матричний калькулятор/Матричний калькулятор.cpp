@@ -50,9 +50,9 @@ public:
 	}
 
 	void input() { //ввод матрицы
-
+		cons_clear();
 		cout << endl << " Матрица " << array.size() << " на " << array[0].size() << endl;
-
+		det = 1;
 		for (int i = 0; i < rows; i++) {
 			cout << "\t";
 			for (int j = 0; j < cols; j++) {
@@ -76,141 +76,50 @@ private:
 	vector < vector < double >> array;//но коментс
 
 
-		bool triangle() { //проверка на треугольный вид
-
-		
-
-		for (int i = 1; i <  rows; i++) {
-
-			for (int j = 0; j < cols; j++) {
-
-				if (array[i][j] != 0) {
-					
-
-					return 0; // логика в том что если встречаем не 0 в нужном диапазоне то возвращаем 0
-
-				}
-			}
-			
-		}//cout << "triangl" << endl; print();
-		
-			
-			return 1; // возвращаем 1 если вид треугольный
+	
 
 
-	}
 
-		int zeroInDiagonal() { // находим 0 в диагонали
+		void detRess() { // функция - прокладка
 
-			for (int i = 0; i < array.size(); i++) {
-
-				if (!(array[i][i])) return i + 1;
-
-			}
-
-			return 0;
+			cout << endl << " Determinant = " << determinant()<< endl;
+			cons_clear(); //прокручиваем консоль чтобы красиво было
 		}
 
-		int colcheck(int param){ //проверяем наличие не 0 в столбике
-			int i = 0;
-			if (param) i++;
-			for (; i < rows; i++) {
+		double  determinant() { //метод гаусса почти
 
-				if (array[i][param]) return i+1; //возвращаем индекс + 1 чтобы вернуть 0 если все числа 0
-
-			}
-			return 0;
-		
-		
-		}
-
-		int checkLine(int num) { //проверяем наличие не 0 в строчке
-
-			for (int i = 0; i < cols; i++) {
-
-				if (array[num][i]) return i+1;	//возвращаем индекс + 1 чтобы вернуть 0 если все числа 0
-
-			}
-			return 0;
-		}
-
-		void lineSwap(int param1, int param2) { //свапер строчек
-			cout <<endl<< "Запуск свапера " << param1 << " " << param2 << endl;
-			print();
-			for (int i = 0; i < array.size(); i++) {
-
-				swap(array[param1][i], array[param2][i]);
-
-			}
-
-			det *= -1; //при замене сточек меняем знак 
-
-			cout << "->------->----->----->---"<<endl;
-			print(); 
-			cout << "-------------------------" << endl<<endl;
-		}
-
-
-
-		void detRess() { //сборная функция - прокладка, если num не будет равен нулю то перемножаем елементы гл. диагонали
-
-			int num = determinant();
-
-			if (num) {
-
-				for (int i = 0; i < rows; i++) {
-
-					det *= array[i][i];
-
-				}
-			}
-
-			cout << endl << " Determinant = " << det * num<< endl; //умножаем на 0 или 1 в зависимости от результата функции determinant()
-		}
-
-
-		bool  determinant() { //метод гаусса
-
-			while (!triangle()) { //делаем пока не добьемся треугольнова вида или не получим исключение
-
-				for (int r = 0; r < rows; r++) {
-					for (int i = r+1; i < rows; i++) {
-						ST:
-						if (array[r][r] == 0) { //делить на 0 нельзя
-							cout << endl << "0" << endl;
-							print();
-							cout << endl <<r<<" "<< "0" << endl;
-							cout << endl << "_" << endl;
-							int temp = checkLine(r)-1; //находим индекс ненулевого ел. в строке
-							int temp2 = colcheck(r)-1; //находим индекс ненулевого ел. в столбике
-							
-							if (temp  == -1) {cout <<   " Ряд нулей"   ;return 0;} //исключение : в  рядку нули
-							if (temp2 == -1) {cout << " Стольбик нулей";return 0;} //исключение : в строке нули
-							lineSwap(r, temp2);
-							goto ST; //да, и что?
-
+			for (int i = 0; i < rows; ++i) {
+				// Если элемент на главной диагонали равен нулю, меняем строки
+				if (array[i][i] == 0) {
+					int swapRow = -1;
+					for (int j = i + 1; j < rows; ++j) {
+						if (array[j][i] != 0) {
+							swapRow = j;
+							break;
 						}
+					}
+					if (swapRow == -1)
+						return 0; // Определитель равен нулю, если нет ненулевых элементов на главной диагонали
+					swap(array[i], array[swapRow]);
+					det *= -1; // Меняем знак определителя при перестановке строк
+				}
 
-						double k = array[i][r] / array[r][r]; //находим коэфициент
-
-
-						for (int j = 0; j < rows; j++) {
-
-							array[i][j] -= array[r][j] * k; //стандартный метод гаусса
-
-
-						}
+				// Приводим матрицу к верхнетреугольному виду
+				for (int j = i + 1; j < rows; ++j) {
+					double factor = array[j][i] / array[i][i];
+					for (int k = i; k < cols; ++k) {
+						array[j][k] -= factor * array[i][k];
 					}
 				}
 			}
-			return 1; //возвращаем 1 если все хорошо
-		}
+			
+			for (int i = 0; i < rows; ++i) {
+				det *= array[i][i];
+			}
 
+			return det;
 
-
-
-
-	
+		}	
 
 
 };
@@ -219,22 +128,22 @@ private:
 
 int main()
 {
-
+	
 	setlocale(LC_ALL, "ru");
     
 	Matrix A(4, 4); //инициализируем
+	while (true) {
+		A.input(); //вводим
+		cons_clear(); //прокручиваем консоль чтобы красиво было
+		system("pause"); //НАДА нажать кнопочку любую
+		A.print(); //выводим
+		A.check(); //запускаем
 
-	A.input(); //вводим
-	cons_clear(); //прокручиваем консоль чтобы красиво было
-	system("pause"); //НАДА нажать кнопочку любую
-	A.print(); //выводим
-	A.check(); //запускаем
+		cout << endl;
+		A.print(); //выводим измененную
+		system("pause"); //конец
 
-	cout << endl;
-	A.print(); //выводим измененную
-	system("pause"); //конец
-	
-	
+	}
 
 
 	return 0; //ну точно уж конец
