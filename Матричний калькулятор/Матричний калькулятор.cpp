@@ -21,8 +21,9 @@ void cons_clear() { //очищаем консоль, но на самом дел
 
 
 
-class Matrix
-{
+class Matrix{
+
+
 public:
 
 
@@ -50,7 +51,7 @@ public:
 	}
 
 	void input() { //ввод матрицы
-		cons_clear();
+		//cons_clear();
 		cout << endl << " Матрица " << array.size() << " на " << array[0].size() << endl;
 		det = 1;
 		for (int i = 0; i < rows; i++) {
@@ -81,16 +82,16 @@ private:
 
 
 		void detRess() { // функция - прокладка
-
-			cout << endl << " Determinant = " << determinant()<< endl;
 			cons_clear(); //прокручиваем консоль чтобы красиво было
+			cout << endl << " Determinant = " << determinant()<< endl;
+			
 		}
 
-		double  determinant() { //метод гаусса почти
+		double  determinant() { //метод гаусса 
 
 			for (int i = 0; i < rows; ++i) {
 				// Если элемент на главной диагонали равен нулю, меняем строки
-				if (array[i][i] == 0) {
+				if (array[i][i] == 0) { //делить на ноль нельзя, ну хоть и можно но мы не будем
 					int swapRow = -1;
 					for (int j = i + 1; j < rows; ++j) {
 						if (array[j][i] != 0) {
