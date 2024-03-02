@@ -33,7 +33,6 @@ public:
 		this->rows = rows; //количество строчек
 		this->cols = cols; //количество столбиков
 
-
 		matrix.resize(rows, vector<double>(cols));  //изменяем масив под нужный размер
 
 	}
@@ -72,25 +71,24 @@ public:
 	}
 
 	void det_print() {
-
-
     
     determinant();
 
     // Установка позиции курсора для вывода матрицы
-    std::cerr << "\033[3;30H";
+    cerr << "\033[3;20H";
 
     // Вывод элементов матрицы с помощью cout
     for (int i = 0; i < rows; i++) {
+		cout << "->->    ";
         for (int j = 0; j < cols; j++) {
             std::cout << " " << TrianglMatrix[i][j] << " ";
         }
         
         // Перемещение курсора вниз
-        std::cerr << "\033[B";
+		cerr << "\033[B";
 
         // Возврат курсора в начало строки
-		std::cerr << "\033[30G";
+		cerr << "\033[20G";
     }
 	cout << endl;
 	det_show();
