@@ -1,8 +1,27 @@
 ﻿#include <iostream>
 #include <vector>
+#include <sstream>
+#include <string>
 
 using namespace std;
 
+
+void console_abs_pos(int row, int col) {
+
+	ostringstream oss;
+	oss << "\033[" << row << ";" << col << "H";
+	string ansi_sequence = oss.str();
+	cerr << ansi_sequence;
+}
+
+void console_pos_in_line(int col) {
+
+	ostringstream oss;
+	oss << "\033[" << col << "G";
+	string ansi_sequence = oss.str();
+	cerr << ansi_sequence;
+
+}
 
 
 template <typename T>  T abs(T a) {   //может понадобится(конечно же для костылей)
@@ -19,6 +38,128 @@ void cons_clear() { //очищаем консоль
 	
 
 }
+
+
+class console {
+
+public:
+	
+	void setCursorPostionAbsolute(int row, int col) {
+
+		ostringstream oss;
+		oss << "\033[" << row << ";" << col << "H";
+		string ansi_sequence = oss.str();
+		cerr << ansi_sequence;
+	}
+	void setCursorPositionInLine(int col) {
+
+		ostringstream oss;
+		oss << "\033[" << col << "G";
+		string ansi_sequence = oss.str();
+		cerr << ansi_sequence;
+
+	}
+	void setCursorPositionShiftUp(int row) {
+
+		ostringstream oss;
+		oss << "\033[" << row << "A";
+		string ansi_sequence = oss.str();
+		cerr << ansi_sequence;
+		
+	}
+	void setCursorPositionShiftDown(int row) {
+
+		ostringstream oss;
+		oss << "\033[" << row << "B";
+		string ansi_sequence = oss.str();
+		cerr << ansi_sequence;
+		
+	}
+	void setCursorPositionShiftRight(int offset) {
+
+		ostringstream oss;
+		oss << "\033[C" << "<" << offset << ">";
+		string ansi_sequence = oss.str();
+		cerr << ansi_sequence;
+		
+	}
+
+	void clear() {
+		cerr << "\033[1J\033[1;1H";
+	}
+
+	void setColorDefault() {
+
+		cerr << "\033[0m";
+
+	}
+
+	void setTextColor(const char color[]) {
+
+		if (color == "black") {
+			cerr << "\033[30m";
+		}
+		else if (color == "red") {
+			cerr << "\033[31m";
+		}
+		else if (color == "green") {
+			cerr << "\033[32m";
+		}
+		else if (color == "yellow") {
+			cerr << "\033[33m";
+		}
+		else if (color == "blue") {
+			cerr << "\033[34m";
+		}
+		else if (color == "purple") {
+			cerr << "\033[35m";
+		}
+		else if (color == "white") {
+			cerr << "\033[37m";
+		}
+		else cerr << "nan undefind text color";
+	}
+
+	void setFoneColor(const char color[]) {
+
+		if (color == "black") {
+			cerr << "\033[40m";
+		}
+		else if (color == "red") {
+			cerr << "\033[41m";
+		}
+		else if (color == "green") {
+			cerr << "\033[42m";
+		}
+		else if (color == "yellow") {
+			cerr << "\033[43m";
+		}
+		else if (color == "blue") {
+			cerr << "\033[44m";
+		}
+		else if (color == "purple") {
+			cerr << "\033[45m";
+		}
+		else if (color == "white") {
+			cerr << "\033[47m";
+		}
+		else cerr << "nan undefind text color";
+	}
+	
+	
+	
+	
+	;
+
+
+
+
+
+
+};
+
+
+
 
 
 
@@ -38,7 +179,8 @@ public:
 	}
 
 	void print() { //вывод матрицы
-		cerr << "\033[3;5H";
+		console_abs_pos(3, 5);
+	
 
 		for (int i = 0; i < rows; i++) {
 			
@@ -50,7 +192,7 @@ public:
 			std::cerr << "\033[B";
 
 			// Возврат курсора в начало строки
-			std::cerr << "\033[5G";
+			console_pos_in_line(5);
 		}
 
 	}
@@ -75,7 +217,7 @@ public:
     determinant();
 
     // Установка позиции курсора для вывода матрицы
-    cerr << "\033[3;20H";
+	console_abs_pos(3, 20);
 
     // Вывод элементов матрицы с помощью cout
     for (int i = 0; i < rows; i++) {
