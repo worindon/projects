@@ -15,13 +15,25 @@ void setCursorPositionInLine(int col) {
 	string ansi_sequence = oss.str();
 	cerr << ansi_sequence;
 
-}void setCursorPositionShiftUp(int row) {
+}
+
+void setCursorPositionShiftUp(int row) {
 
 	ostringstream oss;
 	oss << "\033[" << row << "A";
 	string ansi_sequence = oss.str();
 	cerr << ansi_sequence;
 
+}
+
+void setCursorShiftUpOneLine() {
+
+	cerr << "\033[A";
+}
+
+void clearOurAllLine()
+{
+	cerr << "\033[2K";
 }
 
 void setCursorPositionShiftDown(int row) {
@@ -101,4 +113,28 @@ void setFoneColor(const char color[]) {
 void setDefaultColor() {
 
 	cerr << "\033[0m";
+}
+
+void moveCursorDown() {
+
+	cerr << "\033[B";
+
+}
+
+void indicatorOn(int line){
+
+
+	setCursorPostionAbsolute(line, 1);
+	setFoneColor("green");
+	cout << "    ";
+	setCursorPositionInLine(1);
+	setFoneColor("black");
+
+}
+void indicatorOff(int line) {
+
+	setCursorPostionAbsolute(line, 1);
+	//setFoneColor("black");
+	cout<< "    ";
+	setCursorPositionInLine(1);
 }

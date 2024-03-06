@@ -2,11 +2,7 @@
 #include "ConsoleControl.h"
 
 
-
-
-
-
-Matrix::Matrix(int rows, int cols = 1)
+Matrix::Matrix(int rows, int cols)
 {
 	
 
@@ -30,7 +26,7 @@ void Matrix::print()
 			cout << " " << matrix[i][j] << " ";
 		}
 		// Перемещение курсора вниз
-		std::cerr << "\033[B";
+		moveCursorDown();
 
 		// Возврат курсора в начало строки
 		setCursorPositionInLine(5);
@@ -66,10 +62,10 @@ void Matrix::detPrint()
 		}
 
 		// Перемещение курсора вниз
-		cerr << "\033[B";
+		moveCursorDown();
 
 		// Возврат курсора в начало строки
-		cerr << "\033[20G";
+		setCursorPositionInLine(20);
 	}
 	cout << endl;
 	det_show();

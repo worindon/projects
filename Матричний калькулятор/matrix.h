@@ -1,12 +1,11 @@
 #pragma once
-#include <iostream>
 #include <vector>
 #include "ConsoleControl.h"
-using namespace std;
+
 class Matrix
 {
 public:
-	Matrix(int rows, int cols);
+	Matrix(int rows, int cols = 1);
 	void print();
 	void input();
 	void detPrint();
