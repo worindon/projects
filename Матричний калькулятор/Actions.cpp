@@ -9,10 +9,10 @@ bool getAnswer(char yes, char no) {
     //cerr << "\033[2K";
     while (true) {
        
-        ch = _getch(); // Получаем следующий символ без отображения ввода
-        cout << ch; // Выводим символ на экран
+        ch = _getch();                      // Получаем следующий символ без отображения ввода  
+        cout << ch;                         // Выводим символ на экран
 
-        // Проверяем валидность ввода
+                                            // Проверяем валидность ввода
         if (ch == yes) {
             return true;
         }
@@ -21,38 +21,46 @@ bool getAnswer(char yes, char no) {
         }
 
         setCursorPositionInLine(41);
-        // cerr << "\033[2K";
+                                            // cerr << "\033[2K";
     }
 }
 
-int getAnswerForMenu(int zero_line) {
+int getAnswerForMenu(int zero_line, int end_poz) {
+
     char ch;
-    int num = 1;
-    cerr << "\033[?25l";
-   
-    setCursorPostionAbsolute(zero_line, 1);
+
+    int num = 1;                            //счетчик
+
+    cerr << "\033[?25l";                    //чтобы скрыть курсор
+
+    setCursorPositionAbsolute(zero_line, 1);
+
+    char sumb[] = ">>>";
+
+    indicator_on(sumb);
+
     while (true) {
-        ch = _getch(); // Получаем следующий символ без отображения ввода
-        if (ch == 'P') {
-            indicatorOff(zero_line);
-            setCursorPositionShiftDown(1);
-            indicatorOff(zero_line + num);
+        ch = _getch();                      // Получаем следующий символ без отображения ввода
+        if (ch == 'P' && num < end_poz) {   // движение вниз
+            indicator_off();                //скрываем
+            setCursorPositionShiftDown(1);  //двигаемся вниз
             num++;
-            indicatorOn(zero_line + num);
+            indicator_on(sumb);             //показываем
         }
-        else if (num > 1 && ch == 'H') {
-            indicatorOff(zero_line + num);
+        else if (num > 1 && ch == 'H') {    // движение вверх
+            indicator_off();
+            setCursorPositionShiftUp(1);
             num--;
-            indicatorOn(zero_line + num);
+            indicator_on(sumb);
 
         }
-        else if (ch == ' ') { 
-            indicatorOff(zero_line + num);
-            cerr << "\033[? 25h";
-            return num; 
+        else if (ch == ' ') {               //выбрано
+            indicator_off();                //скрываем счетчик
+            cerr << "\033[? 25h";           //делаем опять видимым курсор
+            return num;                     //возвращаем счетчик
         }
     }
-    // setCursorPositionInLine(41);
+                                            // setCursorPositionInLine(41);
      
 }
 
@@ -62,7 +70,7 @@ void menu()
 {
     cerr << "\033[?25l";
     int num = 1;
-    while (true) {
+    /*while (true) {
         indicatorOn(num);
         if (getAnswer('P', 'H')) {
             indicatorOff(num);
@@ -77,7 +85,7 @@ void menu()
 
         
 
-    }
+    }*/
 
 
 

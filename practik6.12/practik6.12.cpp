@@ -1,6 +1,6 @@
 ﻿#include <iostream>
 #include <string>
-
+#include <string.h>
 
 using namespace std;
 
@@ -8,15 +8,16 @@ using namespace std;
 //обов'язково визначте власну функцію обробки рядка
 //варіант 27
 
-void func(string &str) {
+void func(char* str) {
+    int i, j;
+    int len = strlen(str);
+    for (i = 0, j = 0; i < len; ++i) {
 
-    int size = str.length();
-    if (size < 4) return;
-    char ch = str[size-1];
-    str.erase(size - 1, 1);
-    str.push_back(str[0]);
-    str.push_back(str[1]);
-    str.push_back(ch);
+        if (str[i] != ' ' || (i > 0 && str[i - 1] != ' ')) {
+            str[j++] = str[i];
+        }
+    }
+    str[j] = '\0';
 
 }
 
@@ -24,17 +25,11 @@ int main()
 {
 
     
-    string str;
-    cout << "Введіть рядок: " << endl;
-    getline(cin, str);
-    func(str);   
-
-    int len = str.length();
-
-    for (int i = 0; i < len; i++) {
-
+    char str[] = "fdssf  fdffdf sdfsf  sdfsdf"
+        func(str);
+    int n = strlen(str);
+    for (int i = 0; i < n; i++) {
         cout << str[i];
-
     }
 
     

@@ -5,10 +5,13 @@
 class Matrix
 {
 public:
+
 	Matrix(int rows, int cols = 1);
 	void print();
 	void input();
 	void detPrint();
+
+	vector <vector <double>> get_matrix();
 
 private:
 

@@ -1,53 +1,39 @@
 ﻿#include <iostream>
-#include<vector>
+#include <string>
+#include <cstring>
+
 using namespace std;
 
-void swap(int& a, int& b) {
-    int temp = a;
-    a = b;
-    b = temp;
-}
-
-vector <int> absurt(vector<int> vec) {
-    bool flag;
-    int n = vec.size();
-    for (int i = 0; i < n; i++) {
-        flag = false;
-        for (int j = 0; j < n - i - 1; j++) {
-            if (vec[j] < vec[j + 1]) {
-                swap(vec[j], vec[j + 1]);
-                flag = true;
-            }
-        }
-        if (!flag) {
-            break;
-        }
-    }
-    return vec;
-}
-
-
-int ass(vector<int> &arr)
+// Erase all digits from string.
+string eraseDigits1(string str) // pure function, not change str
 {
-	if(arr.size()<=1)
-	{
-        return 0;
-	}
-    int res = 0;
-    vector<int> b=absurt(arr);
-
-    for (int i = 0;i<b.size()-1; i++)
+    for (int i = str.length() - 1; i >= 0; i--)
     {
-        res += b[i] - b[i + 1];
+        if (isdigit(str[i]))
+        {
+            str.erase(i, 1);
+        }
     }
-
-    return res;
+    return str;
 }
 
 
-int main()
-{
+int main() {
+    string str = "Hello, 123456789!";
+    cout << eraseDigits1(str) << endl; //not change str
+    cout << str << endl;
 
-	vector<int> vec = { -3, -2, -1 };
-    cout << ass(vec);
+    /*char cstr[] = "Hello World!";
+    //cout << eraseDigits1c(cstr) << endl; //change str
+
+    char * result = eraseDigits3c(cstr); //not change str
+    cout << result << endl;
+    free (result);
+    cout << cstr << endl;
+
+    char dest[strlen(cstr) + 1];
+    eraseDigits4(dest, cstr); //not change str
+    cout << dest << endl;
+    */
+    return 0;
 }

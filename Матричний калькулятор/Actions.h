@@ -7,6 +7,6 @@ bool getAnswer(char yes, char no);
 
 void actionDeterminant();
 
-
 void menu();
-int getAnswerForMenu(int zero_line);
+
+int getAnswerForMenu(int zero_line, int end_poz);

@@ -1,10 +1,10 @@
 #include "ConsoleControl.h"
 
-void setCursorPostionAbsolute(int row, int col) {
+void setCursorPositionAbsolute(int row, int col) {
 
 	ostringstream oss;
 	oss << "\033[" << row << ";" << col << "H";
-	string ansi_sequence = oss.str();
+	const string ansi_sequence = oss.str();
 	cerr << ansi_sequence;
 }
 
@@ -12,7 +12,7 @@ void setCursorPositionInLine(int col) {
 
 	ostringstream oss;
 	oss << "\033[" << col << "G";
-	string ansi_sequence = oss.str();
+	const string ansi_sequence = oss.str();
 	cerr << ansi_sequence;
 
 }
@@ -21,7 +21,7 @@ void setCursorPositionShiftUp(int row) {
 
 	ostringstream oss;
 	oss << "\033[" << row << "A";
-	string ansi_sequence = oss.str();
+	const string ansi_sequence = oss.str();
 	cerr << ansi_sequence;
 
 }
@@ -40,7 +40,7 @@ void setCursorPositionShiftDown(int row) {
 
 	ostringstream oss;
 	oss << "\033[" << row << "B";
-	string ansi_sequence = oss.str();
+	const string ansi_sequence = oss.str();
 	cerr << ansi_sequence;
 
 }
@@ -49,7 +49,7 @@ void setCursorPositionShiftRight(int offset) {
 
 	ostringstream oss;
 	oss << "\033[C" << "<" << offset << ">";
-	string ansi_sequence = oss.str();
+	const string ansi_sequence = oss.str();
 	cerr << ansi_sequence;
 
 }
@@ -121,20 +121,22 @@ void moveCursorDown() {
 
 }
 
-void indicatorOn(int line){
+void indicator_on(const char sumbol[]) {
 
 
-	setCursorPostionAbsolute(line, 1);
+	
+	setCursorPositionInLine(1);
 	setFoneColor("green");
-	cout << "    ";
+	cout <<"   " << sumbol << " ";
 	setCursorPositionInLine(1);
 	setFoneColor("black");
 
 }
-void indicatorOff(int line) {
 
-	setCursorPostionAbsolute(line, 1);
+void indicator_off() {
+
+	setCursorPositionInLine( 1);
 	//setFoneColor("black");
-	cout<< "    ";
+	cout << "       ";
 	setCursorPositionInLine(1);
 }

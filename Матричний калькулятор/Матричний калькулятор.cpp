@@ -1,21 +1,22 @@
-﻿#include "ConsoleControl.h"
-#include "matrix.h"
-#include "Actions.h"
+﻿#include "Actions.h"
+#include "ConsoleControl.h"
+//#include "matrix.h"
 
 using namespace std;
 
 int main()
 {	
-	setlocale(LC_ALL, "ru");
-	//actionDeterminant();
-	//getAnswer();
-
-	
+	setlocale(LC_ALL, "ru"); 
 
 
-	//menu();
-	cout << getAnswerForMenu(15);
-	system("pause");
+
+
+	Matrix A(3, 3);
+	A.input();
+	clear();
+	A.print();
+	A.detPrint();
+	system("echo anythink && pause > null");
 
 	return 0;
 }
@@ -35,4 +36,3 @@ int main()
 //\033[? 1049l : Восстановление сохраненного состояния экрана.
 //\033[2K:Очистка строки, на которой находится курсор.
 //\033[<n>D:Перемещение курсора на указанное количество символов влево.
-//\033[3J:Очистка экрана и буфера экрана.   

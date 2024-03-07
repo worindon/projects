@@ -6,8 +6,8 @@ Matrix::Matrix(int rows, int cols)
 {
 	
 
-		this->rows = rows; //количество строчек
-		this->cols = cols; //количество столбиков
+		this->rows = rows;							//количество строчек
+		this->cols = cols;							//количество столбиков
 
 		matrix.resize(rows, vector<double>(cols));  //изменяем масив под нужный размер
 
@@ -15,8 +15,8 @@ Matrix::Matrix(int rows, int cols)
 }
 
 void Matrix::print()
-{
-	setCursorPostionAbsolute(3, 5);
+{	
+	setCursorPositionAbsolute(3, 5);
 
 
 	for (int i = 0; i < rows; i++) {
@@ -25,11 +25,11 @@ void Matrix::print()
 
 			cout << " " << matrix[i][j] << " ";
 		}
-		// Перемещение курсора вниз
-		moveCursorDown();
+						
+		moveCursorDown();								// Перемещение курсора вниз
 
-		// Возврат курсора в начало строки
-		setCursorPositionInLine(5);
+								
+		setCursorPositionInLine(5);						// Возврат курсора в начало строки
 	}
 }
 
@@ -50,25 +50,26 @@ void Matrix::input()
 void Matrix::detPrint()
 {
 	determinant();
-
-	// Установка позиции курсора для вывода матрицы
-	setCursorPostionAbsolute(3, 20);
-
-	// Вывод элементов матрицы с помощью cout
-	for (int i = 0; i < rows; i++) {
+	
+	setCursorPositionAbsolute(3, 20);		// Установка позиции курсора для вывода матрицы
+	
+	for (int i = 0; i < rows; i++) {		// Вывод элементов матрицы с помощью cout
 		cout << "->->    ";
 		for (int j = 0; j < cols; j++) {
 			std::cout << " " << TrianglMatrix[i][j] << " ";
 		}
 
-		// Перемещение курсора вниз
-		moveCursorDown();
-
-		// Возврат курсора в начало строки
-		setCursorPositionInLine(20);
+		moveCursorDown();					// Перемещение курсора вниз
+									
+		setCursorPositionInLine(20);		// Возврат курсора в начало строки(условной)
 	}
 	cout << endl;
 	det_show();
+}
+
+vector<vector<double>> Matrix::get_matrix()
+{
+	return matrix;
 }
 
 void Matrix::det_show()
@@ -81,8 +82,8 @@ void Matrix::determinant()
 	TrianglMatrix = matrix;
 
 	for (int i = 0; i < rows; ++i) {
-		// Если элемент на главной диагонали равен нулю, меняем строки
-		if (TrianglMatrix[i][i] == 0) { //делить на ноль нельзя, ну хоть и можно но мы не будем
+												// Если элемент на главной диагонали равен нулю, меняем строки
+		if (TrianglMatrix[i][i] == 0) {			//делить на ноль нельзя, ну хоть и можно но мы не будем
 			int swapRow = -1;
 			for (int j = i + 1; j < rows; ++j) {
 				if (TrianglMatrix[j][i] != 0) {
@@ -95,10 +96,10 @@ void Matrix::determinant()
 				return;
 			}
 			swap(TrianglMatrix[i], TrianglMatrix[swapRow]);
-			det *= -1; // Меняем знак определителя при перестановке строк
+			det *= -1;							// Меняем знак определителя при перестановке строк
 		}
 
-		// Приводим матрицу к верхнетреугольному виду
+												// Приводим матрицу к верхнетреугольному виду
 		for (int j = i + 1; j < rows; ++j) {
 			double factor = TrianglMatrix[j][i] / TrianglMatrix[i][i];
 			for (int k = i; k < cols; ++k) {
