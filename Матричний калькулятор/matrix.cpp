@@ -4,15 +4,129 @@
 
 Matrix::Matrix(int rows, int cols)
 {
-	
 
 		this->rows = rows;							//количество строчек
 		this->cols = cols;							//количество столбиков
 
-		matrix.resize(rows, vector<double>(cols));  //измен€ем масив под нужный размер
+		matrix.resize(rows, vector<double>(cols));  //измен€ем масив под нужный размер 
 
 	
 }
+
+Matrix& Matrix::operator=(const Matrix& other) {
+	if (this != &other) {
+		rows = other.rows;
+		cols = other.cols;
+		matrix = other.matrix;
+		TrianglMatrix = other.TrianglMatrix;
+		det = other.det;
+	}
+	return *this;
+}
+
+Matrix Matrix::operator+(const Matrix& other) const {
+	if (rows != other.rows || cols != other.cols) {
+		throw invalid_argument("Matrices must have the same dimensions for addition");
+	}
+
+	Matrix result(rows, cols);
+	for (int i = 0; i < rows; ++i) {
+		for (int j = 0; j < cols; ++j) {
+			result.matrix[i][j] = matrix[i][j] + other.matrix[i][j];
+		}
+	}
+	return result;
+}
+
+Matrix Matrix::operator-(const Matrix& other) const {
+	if (rows != other.rows || cols != other.cols) {
+		throw invalid_argument("Matrices must have the same dimensions for subtraction");
+	}
+
+	Matrix result(rows, cols);
+	for (int i = 0; i < rows; ++i) {
+		for (int j = 0; j < cols; ++j) {
+			result.matrix[i][j] = matrix[i][j] - other.matrix[i][j];
+		}
+	}
+	return result;
+}
+
+Matrix Matrix::operator*(const Matrix& other) const {
+	if (cols != other.rows) {
+		throw invalid_argument("Number of columns in the first matrix must match the number of rows in the second matrix for multiplication");
+	}
+
+	Matrix result(rows, other.cols);
+	for (int i = 0; i < rows; ++i) {
+		for (int j = 0; j < other.cols; ++j) {
+			for (int k = 0; k < cols; ++k) {
+				result.matrix[i][j] += matrix[i][k] * other.matrix[k][j];
+			}
+		}
+	}
+	return result;
+}
+
+Matrix& Matrix::operator+=(const Matrix& other) {
+	if (rows != other.rows || cols != other.cols) {
+		throw std::invalid_argument("Matrices must have the same dimensions for addition");
+	}
+
+	for (int i = 0; i < rows; ++i) {
+		for (int j = 0; j < cols; ++j) {
+			matrix[i][j] += other.matrix[i][j];
+		}
+	}
+	return *this;
+}
+
+
+Matrix& Matrix::operator-=(const Matrix& other) {
+	if (rows != other.rows || cols != other.cols) {
+		throw std::invalid_argument("Matrices must have the same dimensions for subtraction");
+	}
+
+	for (int i = 0; i < rows; ++i) {
+		for (int j = 0; j < cols; ++j) {
+			matrix[i][j] -= other.matrix[i][j];
+		}
+	}
+	return *this;
+}
+
+Matrix& Matrix::operator*=(const Matrix& other) {
+	if (cols != other.rows) {
+		throw std::invalid_argument("Number of columns in the first matrix must match the number of rows in the second matrix for multiplication");
+	}
+
+	Matrix result(rows, other.cols);
+	for (int i = 0; i < rows; ++i) {
+		for (int j = 0; j < other.cols; ++j) {
+			for (int k = 0; k < cols; ++k) {
+				result.matrix[i][j] += matrix[i][k] * other.matrix[k][j];
+			}
+		}
+	}
+	*this = result; // Assigning the result back to this matrix
+	return *this;
+}
+
+bool Matrix::operator==(const Matrix& other) const {
+	if (rows != other.rows || cols != other.cols) {
+		return false; // ћатрицы разного размера не могут быть равными
+	}
+
+	for (int i = 0; i < rows; ++i) {
+		for (int j = 0; j < cols; ++j) {
+			if (matrix[i][j] != other.matrix[i][j]) {
+				return false; // Ќайден элемент, который не совпадает
+			}
+		}
+	}
+	return true; // ¬се элементы совпадают, матрицы равны
+}
+
 
 void Matrix::print()
 {	
@@ -20,7 +134,7 @@ void Matrix::print()
 
 
 	for (int i = 0; i < rows; i++) {
-
+		
 		for (int j = 0; j < cols; j++) {
 
 			cout << " " << matrix[i][j] << " ";
@@ -67,10 +181,15 @@ void Matrix::detPrint()
 	det_show();
 }
 
-vector<vector<double>> Matrix::get_matrix()
+void Matrix::resize_matrix(int rows, int cols)
 {
-	return matrix;
+	this->rows = rows;
+	this->cols = cols;
+	matrix.resize(rows, vector<double>(cols));
+
 }
+
+
 
 void Matrix::det_show()
 {
@@ -80,6 +199,7 @@ void Matrix::det_show()
 void Matrix::determinant()
 {
 	TrianglMatrix = matrix;
+	det = 1;
 
 	for (int i = 0; i < rows; ++i) {
 												// ≈сли элемент на главной диагонали равен нулю, мен€ем строки
@@ -111,4 +231,9 @@ void Matrix::determinant()
 	for (int i = 0; i < rows; ++i) {
 		det *= TrianglMatrix[i][i];
 	}
+}
+
+vector<vector<double>> Matrix::get_matrix()
+{
+	return matrix;
 }

@@ -9,14 +9,10 @@ int main()
 	setlocale(LC_ALL, "ru"); 
 
 
+	
 
-
-	Matrix A(3, 3);
-	A.input();
-	clear();
-	A.print();
-	A.detPrint();
-	system("echo anythink && pause > null");
+	
+	
 
 	return 0;
 }

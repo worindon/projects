@@ -11,7 +11,18 @@ public:
 	void input();
 	void detPrint();
 
+	void resize_matrix(int rows, int cols);
 	vector <vector <double>> get_matrix();
+
+	Matrix& operator=(const Matrix& other);
+	Matrix operator+(const Matrix& other) const;
+	Matrix operator-(const Matrix& other) const;
+	Matrix operator*(const Matrix& other) const;
+	Matrix& operator+=(const Matrix& other);
+	Matrix& operator-=(const Matrix& other);
+	Matrix& operator*=(const Matrix& other);
+	bool operator==(const Matrix& other) const;
+
 
 private:
 

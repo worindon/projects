@@ -25,7 +25,7 @@ bool getAnswer(char yes, char no) {
     }
 }
 
-int getAnswerForMenu(int zero_line, int end_poz) {
+int IndicatorForMenu(int zero_line, int end_poz) {
 
     char ch;
 
