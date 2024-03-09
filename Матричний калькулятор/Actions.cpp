@@ -27,17 +27,12 @@ bool getAnswer(char yes, char no) {
 
 int IndicatorForMenu(int zero_line, int end_poz) {
 
-    char ch;
-
-    int num = 1;                            //счетчик
-
+    char ch;int num = 1;                            //чар и счетчик
     cerr << "\033[?25l";                    //чтобы скрыть курсор
-
     setCursorPositionAbsolute(zero_line, 1);
+    char sumb[] = ">>>";                    //чтобы красиво было
 
-    char sumb[] = ">>>";
-
-    indicator_on(sumb);
+    indicator_on(sumb);                     //показываем
 
     while (true) {
         ch = _getch();                      // Получаем следующий символ без отображения ввода
@@ -45,7 +40,7 @@ int IndicatorForMenu(int zero_line, int end_poz) {
             indicator_off();                //скрываем
             setCursorPositionShiftDown(1);  //двигаемся вниз
             num++;
-            indicator_on(sumb);             //показываем
+            indicator_on(sumb);             
         }
         else if (num > 1 && ch == 'H') {    // движение вверх
             indicator_off();

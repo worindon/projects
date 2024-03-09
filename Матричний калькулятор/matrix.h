@@ -21,6 +21,7 @@ public:
 	Matrix& operator+=(const Matrix& other);
 	Matrix& operator-=(const Matrix& other);
 	Matrix& operator*=(const Matrix& other);
+	vector<double>& operator[](int index);
 	bool operator==(const Matrix& other) const;
 
 

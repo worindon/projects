@@ -21,7 +21,8 @@ Matrix& Matrix::operator=(const Matrix& other) {
 		TrianglMatrix = other.TrianglMatrix;
 		det = other.det;
 	}
-	return *this;
+	return *this; //необязательно но нужно для выражений по типу A=B=C     
+				  //нужно вернуть указатель, чтобы присвоить значения елементу А, так как присвоение начинается с конца
 }
 
 Matrix Matrix::operator+(const Matrix& other) const {
@@ -70,7 +71,7 @@ Matrix Matrix::operator*(const Matrix& other) const {
 
 Matrix& Matrix::operator+=(const Matrix& other) {
 	if (rows != other.rows || cols != other.cols) {
-		throw std::invalid_argument("Matrices must have the same dimensions for addition");
+		throw invalid_argument("Matrices must have the same dimensions for addition");
 	}
 
 	for (int i = 0; i < rows; ++i) {
@@ -97,7 +98,7 @@ Matrix& Matrix::operator-=(const Matrix& other) {
 
 Matrix& Matrix::operator*=(const Matrix& other) {
 	if (cols != other.rows) {
-		throw std::invalid_argument("Number of columns in the first matrix must match the number of rows in the second matrix for multiplication");
+		throw invalid_argument("Number of columns in the first matrix must match the number of rows in the second matrix for multiplication");
 	}
 
 	Matrix result(rows, other.cols);
@@ -110,6 +111,13 @@ Matrix& Matrix::operator*=(const Matrix& other) {
 	}
 	*this = result; // Assigning the result back to this matrix
 	return *this;
+}
+
+vector<double>& Matrix::operator[](int index) {
+	if (index < 0 || index >= rows) {
+		throw out_of_range("Index out of range");
+	}
+	return matrix[index];
 }
 
 bool Matrix::operator==(const Matrix& other) const {
