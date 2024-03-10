@@ -7,12 +7,14 @@ using namespace std;
 int main()
 {	
 	setlocale(LC_ALL, "ru"); 
-
-
+	
+	Matrix A(3, 3);
+	Matrix B(3, 3);
+	while (!main_menu(A, B)){}
 	
 
-	
-	
+
+
 
 	return 0;
 }

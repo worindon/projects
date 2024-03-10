@@ -13,6 +13,7 @@ public:
 
 	void resize_matrix(int rows, int cols);
 	vector <vector <double>> get_matrix();
+	int get_size(bool fl = 0) ;
 
 	Matrix& operator=(const Matrix& other);
 	Matrix operator+(const Matrix& other) const;
@@ -32,8 +33,9 @@ private:
 	vector < vector < double >> matrix;
 	vector < vector < double >> TrianglMatrix;
 
-	void det_show();
+	void det_show() const;
 	void determinant();
+
 
 };
 

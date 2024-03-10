@@ -9,4 +9,7 @@ void actionDeterminant();
 
 void menu();
 
-int getAnswerForMenu(int zero_line, int end_poz);
+
+int IndicatorForMenu(int zero_line, int end_poz);
+
+bool main_menu(Matrix& A, Matrix& B);

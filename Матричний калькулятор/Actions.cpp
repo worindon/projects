@@ -51,7 +51,7 @@ int IndicatorForMenu(int zero_line, int end_poz) {
         }
         else if (ch == ' ') {               //выбрано
             indicator_off();                //скрываем счетчик
-            cerr << "\033[? 25h";           //делаем опять видимым курсор
+            cerr << "\033[?25h";           //делаем опять видимым курсор
             return num;                     //возвращаем счетчик
         }
     }
@@ -85,6 +85,99 @@ void menu()
 
 
 }
+
+
+
+bool main_menu(Matrix& A, Matrix& B) {
+       
+
+    cout <<"\tMatrix A have sizes "<<A.get_size(1)<<" "<<A.get_size()<<
+     "\tMatrix B have sizes " << B.get_size(1) << " " << B.get_size()<<"\n"
+                                
+                                "\tOperations ->->\n"<<
+                                "\tinput sizes\n"<<
+                                "\t + \n"<<
+                                "\t - \n"<<
+                                "\t * \n"<<
+                                "\tExit\n";
+
+
+    short int check = IndicatorForMenu(3, 5);
+
+    switch (check){
+
+    case 1:
+
+        clear();
+        int rows, cols;
+        cin >> rows >> cols;
+        A.resize_matrix(rows, cols);
+        B = A;        
+        clear();
+        return false;
+
+    case 2:
+
+        clear();  
+       
+        A.input();
+        clear();
+        B.input();
+        clear();
+        A += B;
+        A.print();
+        system("pause");
+        clear();
+        return false;
+        
+
+    case 3:
+
+        clear();
+       
+        A.input();
+        clear();
+        B.input();
+        clear();
+        A -= B;
+        A.print();
+        system("pause");
+        clear();
+        return false;
+        
+
+    case 4:
+
+        clear();
+       
+        A.input();
+        clear();
+        B.input();
+        clear();
+        A *= B;
+        A.print();
+        system("pause");
+        clear();
+        return false;
+        
+
+    case 5:
+
+        return true;
+
+    default:
+
+        return true;
+    }
+    
+    
+
+
+}
+
+
+
+
 void actionDeterminant() {
 
 	setTextColor("green");//для работы приложения без среды может потребоваться следующая команда		

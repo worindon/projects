@@ -55,7 +55,8 @@ void setCursorPositionShiftRight(int offset) {
 }
 
 void clear() {
-	cerr << "\033[1J\033[1;1H";
+	//cout << "\033[2J\033[1;1H";
+	system("cls");
 }
 
 void setTextColor(const char color[]) {

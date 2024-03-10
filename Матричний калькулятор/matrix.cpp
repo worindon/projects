@@ -24,7 +24,6 @@ Matrix& Matrix::operator=(const Matrix& other) {
 	return *this; //необ€зательно но нужно дл€ выражений по типу A=B=C     
 				  //нужно вернуть указатель, чтобы присвоить значени€ елементу ј, так как присвоение начинаетс€ с конца
 }
-
 Matrix Matrix::operator+(const Matrix& other) const {
 	if (rows != other.rows || cols != other.cols) {
 		throw invalid_argument("Matrices must have the same dimensions for addition");
@@ -38,7 +37,6 @@ Matrix Matrix::operator+(const Matrix& other) const {
 	}
 	return result;
 }
-
 Matrix Matrix::operator-(const Matrix& other) const {
 	if (rows != other.rows || cols != other.cols) {
 		throw invalid_argument("Matrices must have the same dimensions for subtraction");
@@ -52,7 +50,6 @@ Matrix Matrix::operator-(const Matrix& other) const {
 	}
 	return result;
 }
-
 Matrix Matrix::operator*(const Matrix& other) const {
 	if (cols != other.rows) {
 		throw invalid_argument("Number of columns in the first matrix must match the number of rows in the second matrix for multiplication");
@@ -68,7 +65,6 @@ Matrix Matrix::operator*(const Matrix& other) const {
 	}
 	return result;
 }
-
 Matrix& Matrix::operator+=(const Matrix& other) {
 	if (rows != other.rows || cols != other.cols) {
 		throw invalid_argument("Matrices must have the same dimensions for addition");
@@ -81,11 +77,9 @@ Matrix& Matrix::operator+=(const Matrix& other) {
 	}
 	return *this;
 }
-
-
 Matrix& Matrix::operator-=(const Matrix& other) {
 	if (rows != other.rows || cols != other.cols) {
-		throw std::invalid_argument("Matrices must have the same dimensions for subtraction");
+		throw invalid_argument("Matrices must have the same dimensions for subtraction");
 	}
 
 	for (int i = 0; i < rows; ++i) {
@@ -95,7 +89,6 @@ Matrix& Matrix::operator-=(const Matrix& other) {
 	}
 	return *this;
 }
-
 Matrix& Matrix::operator*=(const Matrix& other) {
 	if (cols != other.rows) {
 		throw invalid_argument("Number of columns in the first matrix must match the number of rows in the second matrix for multiplication");
@@ -112,17 +105,15 @@ Matrix& Matrix::operator*=(const Matrix& other) {
 	*this = result; // Assigning the result back to this matrix
 	return *this;
 }
-
-vector<double>& Matrix::operator[](int index) {
+vector<double>& Matrix::operator [] (int index) {
 	if (index < 0 || index >= rows) {
 		throw out_of_range("Index out of range");
 	}
 	return matrix[index];
 }
-
 bool Matrix::operator==(const Matrix& other) const {
 	if (rows != other.rows || cols != other.cols) {
-		return false; // ћатрицы разного размера не могут быть равными
+		return false;		  // ћатрицы разного размера не могут быть равными
 	}
 
 	for (int i = 0; i < rows; ++i) {
@@ -132,7 +123,7 @@ bool Matrix::operator==(const Matrix& other) const {
 			}
 		}
 	}
-	return true; // ¬се элементы совпадают, матрицы равны
+	return true;			  // ¬се элементы совпадают, матрицы равны
 }
 
 
@@ -157,7 +148,8 @@ void Matrix::print()
 
 void Matrix::input()
 {
-	cout << endl << " ћатрица " << matrix.size() << " на " << matrix[0].size() << endl;
+	clear();
+	cout << endl << " ћатрица " << get_size() << " на " << get_size(1) << endl;
 	det = 1;
 	for (int i = 0; i < rows; i++) {
 		cout << "\t";
@@ -191,15 +183,27 @@ void Matrix::detPrint()
 
 void Matrix::resize_matrix(int rows, int cols)
 {
+	vector<vector<double>> newMatrix(rows, vector<double>(cols));
+
+	
+	int minRows = min(this->rows, rows);
+	int minCols = min(this->cols, cols);
+	for (int i = 0; i < minRows; ++i) {
+		for (int j = 0; j < minCols; ++j) {
+			newMatrix[i][j] = matrix[i][j];
+		}
+	}
+
+	
 	this->rows = rows;
 	this->cols = cols;
-	matrix.resize(rows, vector<double>(cols));
+	this->matrix = newMatrix;
 
 }
 
 
 
-void Matrix::det_show()
+void Matrix::det_show() const
 {
 	cout << endl << " Determinant = " << det << endl;
 }
@@ -245,3 +249,10 @@ vector<vector<double>> Matrix::get_matrix()
 {
 	return matrix;
 }
+
+int Matrix::get_size(bool vec) 
+{
+	if (vec) return cols;
+	return rows;	
+}
+
