@@ -141,7 +141,7 @@ void print_folder(int rows, int cols) {
 
 }
 
-void print_two_matrix_non_multiplication(Matrix A, Matrix B, const char ch, const char chr) {
+void print_two_matrix_non_multiplication(Matrix &A, Matrix &B, const char ch, const char chr) {
 
 
 	
@@ -149,7 +149,7 @@ void print_two_matrix_non_multiplication(Matrix A, Matrix B, const char ch, cons
 	setCursorPositionShiftRight(A.get_width()*9 + 1 );
 	cout << "  ";
 	saveCursorPosition();
-	setCursorPositionShiftDown(A.get_height() / 2 + 2);
+	setCursorPositionShiftDown(A.get_height());
 	cout <<ch<<"  ";
 	restoreCursorPosition();
 	setCursorPositionShiftRight(3);
@@ -157,7 +157,7 @@ void print_two_matrix_non_multiplication(Matrix A, Matrix B, const char ch, cons
 	setCursorPositionShiftRight(B.get_width() * 9 + 1);
 	cout << "  ";
 	saveCursorPosition();
-	setCursorPositionShiftDown(B.get_height() / 2 + 2);
+	setCursorPositionShiftDown(B.get_height() );
 	cout << chr << "  ";
 	restoreCursorPosition();
 	setCursorPositionShiftRight(3);
@@ -165,6 +165,7 @@ void print_two_matrix_non_multiplication(Matrix A, Matrix B, const char ch, cons
 	else if (ch == '-') { A -= B; }	
 	matrix_print(A);
 	setCursorPositionShiftDown(A.get_width() * 2 + 1);
+	setCursorPositionShiftDown(A.get_height() * 2 + 1);
 	cout << '\n';
 	
 

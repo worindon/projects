@@ -1,6 +1,5 @@
 #pragma once
 #include <conio.h>
-#include "ConsoleControl.h"
 #include "matrix_options.h"
 
 bool getAnswer(char yes, char no);
