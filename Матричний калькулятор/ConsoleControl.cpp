@@ -1,5 +1,6 @@
 #include "ConsoleControl.h"
 
+
 void setCursorPositionAbsolute(int row, int col) {
 
 	ostringstream oss;
@@ -46,12 +47,7 @@ void setCursorPositionShiftDown(int row) {
 }
 
 void setCursorPositionShiftRight(int offset) {
-
-	ostringstream oss;
-	oss << "\033[C" << "<" << offset << ">";
-	const string ansi_sequence = oss.str();
-	cerr << ansi_sequence;
-
+	cout << "\033[" << offset << "C";
 }
 
 void clear() {
@@ -140,4 +136,46 @@ void indicator_off() {
 	//setFoneColor("black");
 	cout << "       ";
 	setCursorPositionInLine(1);
+}
+
+void saveCursorPosition() {
+	printf("\033[s"); // ANSI escape sequence для сохранения позиции курсора
+}
+
+void restoreCursorPosition() {
+	printf("\033[u"); // ANSI escape sequence для восстановления позиции курсора
+}
+
+// Функция для отрисовки рамки таблицы
+void drawTableFrame(int numRows, int numCols) {
+	// Верхняя горизонтальная линия
+	setTextColor("green"); 
+	saveCursorPosition();
+	cout << "+";
+	for (int i = 0; i < numCols; ++i) {
+		cout << "--------+";
+	}
+	
+
+	int k = 1;
+	for (int i = 0; i < numRows; i++, k++) {
+
+		restoreCursorPosition();
+		setCursorPositionShiftDown(i+k);
+
+		cout << "|";
+		for (int j = 0; j < numCols; ++j) {
+			cout << "        |";
+		}
+		restoreCursorPosition();
+		setCursorPositionShiftDown(i+k+1);		
+
+		
+		cout << "+";
+		for (int j = 0; j < numCols; ++j) {
+			cout << "--------+";
+		}
+		
+	}
+	setTextColor("white");
 }

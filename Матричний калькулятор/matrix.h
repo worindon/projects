@@ -1,5 +1,5 @@
 #pragma once
-#include <vector>
+
 #include "ConsoleControl.h"
 
 class Matrix
@@ -7,13 +7,23 @@ class Matrix
 public:
 
 	Matrix(int rows, int cols = 1);
-	void print();
-	void input();
-	void detPrint();
+	
+	
 
 	void resize_matrix(int rows, int cols);
+
+
+	
+	
+	int get_height() const;
+	int get_width() const;
 	vector <vector <double>> get_matrix();
-	int get_size(bool fl = 0) ;
+	vector <vector <double>> get_Triangle_matrix();
+
+	void set_matrix(vector < vector < double >> matrix);
+	void set_det(long double det = 1);
+	void set_triangl_matrix(vector < vector < double >> TrianglMatrix);
+
 
 	Matrix& operator=(const Matrix& other);
 	Matrix operator+(const Matrix& other) const;
@@ -25,7 +35,7 @@ public:
 	vector<double>& operator[](int index);
 	bool operator==(const Matrix& other) const;
 
-
+	;
 private:
 
 	long double det = 1; 
@@ -33,8 +43,8 @@ private:
 	vector < vector < double >> matrix;
 	vector < vector < double >> TrianglMatrix;
 
-	void det_show() const;
-	void determinant();
+	
+	
 
 
 };

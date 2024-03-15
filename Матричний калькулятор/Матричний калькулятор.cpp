@@ -1,36 +1,32 @@
-﻿#include "Actions.h"
-#include "ConsoleControl.h"
-//#include "matrix.h"
+﻿#include "ConsoleControl.h"
+#include "matrix_options.h"
+#include <windows.h>
+#include "Actions.h"
 
-using namespace std;
+int main() {
+    // Получаем дескриптор консольного окна
+    HWND consoleWindow = GetConsoleWindow();
 
-int main()
-{	
-	setlocale(LC_ALL, "ru"); 
-	
-	Matrix A(3, 3);
-	Matrix B(3, 3);
-	while (!main_menu(A, B)){}
-	
+    // Получаем дескриптор стандартного вывода
+    HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    // Устанавливаем размеры окна консоли
+    RECT rect;
+    GetWindowRect(consoleWindow, &rect);
+    MoveWindow(consoleWindow, rect.left, rect.top, 1400, 600, TRUE);    
+    SetWindowLong(consoleWindow, GWL_STYLE, GetWindowLong(consoleWindow, GWL_STYLE) & ~WS_SIZEBOX);
 
 
-
-
-	return 0;
+    setlocale(LC_ALL, "ru");
+    Matrix A(6, 6);
+    Matrix B(6, 6);
+   // print_two_matrix_non_multiplication(A, B, '+', '=');
+    while(!main_menu(A, B)){}
+    cout << "\n\t";    
+    return 0;
 }
 
 
-//\033[K:Очистка от текущего положения курсора до конца строки. 
-// //\033[s: Сохранение текущего положения курсора.
-//\033[u:Восстановление предыдущего сохраненного положения курсора.
-//\033[A<количество>:Перемещение курсора вверх на указанное количество строк.
-//\033[B<количество>:Перемещение курсора вниз на указанное количество строк.
-//\033[C<количество>:Перемещение курсора вправо на указанное количество символов.
-//\033[D<количество>:Перемещение курсора влево на указанное количество символов.
-//\033[<строка>; <столбец>H или \033[<строка>; <столбец>f: Перемещение курсора в указанную позицию(строка, столбец).
-//\033[? 25l : Скрыть курсор.
-//\033[? 25h : Показать курсор.
-//\033[? 1049h : Сохранение текущего состояния экрана.
-//\033[? 1049l : Восстановление сохраненного состояния экрана.
-//\033[2K:Очистка строки, на которой находится курсор.
-//\033[<n>D:Перемещение курсора на указанное количество символов влево.
+    
+      
+   

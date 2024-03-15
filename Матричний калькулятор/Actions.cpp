@@ -1,18 +1,15 @@
 #include "Actions.h"
-
-
-
 bool getAnswer(char yes, char no) {
     char ch;
     // cout << "Пожалуйста, введите 'y' или 'n': \t";
     //cerr << "\033[?25l";
     //cerr << "\033[2K";
     while (true) {
-       
+
         ch = _getch();                      // Получаем следующий символ без отображения ввода  
         cout << ch;                         // Выводим символ на экран
 
-                                            // Проверяем валидность ввода
+        // Проверяем валидность ввода
         if (ch == yes) {
             return true;
         }
@@ -20,14 +17,14 @@ bool getAnswer(char yes, char no) {
             return false;
         }
 
-        setCursorPositionInLine(41);
-                                            // cerr << "\033[2K";
+        setCursorPositionInLine(32);
+        // cerr << "\033[2K";
     }
 }
 
 int IndicatorForMenu(int zero_line, int end_poz) {
 
-    char ch;int num = 1;                            //чар и счетчик
+    char ch; int num = 1;                            //чар и счетчик
     cerr << "\033[?25l";                    //чтобы скрыть курсор
     setCursorPositionAbsolute(zero_line, 1);
     char sumb[] = ">>>";                    //чтобы красиво было
@@ -40,7 +37,7 @@ int IndicatorForMenu(int zero_line, int end_poz) {
             indicator_off();                //скрываем
             setCursorPositionShiftDown(1);  //двигаемся вниз
             num++;
-            indicator_on(sumb);             
+            indicator_on(sumb);
         }
         else if (num > 1 && ch == 'H') {    // движение вверх
             indicator_off();
@@ -55,145 +52,75 @@ int IndicatorForMenu(int zero_line, int end_poz) {
             return num;                     //возвращаем счетчик
         }
     }
-                                            // setCursorPositionInLine(41);
-     
-}
-
-
-
-void menu()
-{
-    cerr << "\033[?25l";
-    int num = 1;
-    /*while (true) {
-        indicatorOn(num);
-        if (getAnswer('P', 'H')) {
-            indicatorOff(num);
-            num++;
-            indicatorOn(num);
-        }
-        else if (num > 1) {
-            indicatorOff(num);
-            num--;
-            indicatorOn(num);
-        }
-
-        
-
-    }*/
-
-
+    // setCursorPositionInLine(41);
 
 }
-
-
-
 bool main_menu(Matrix& A, Matrix& B) {
        
 
-    cout <<"\tMatrix A have sizes "<<A.get_size(1)<<" "<<A.get_size()<<
-     "\tMatrix B have sizes " << B.get_size(1) << " " << B.get_size()<<"\n"
-                                
-                                "\tOperations ->->\n"<<
-                                "\tinput sizes\n"<<
-                                "\t + \n"<<
-                                "\t - \n"<<
-                                "\t * \n"<<
-                                "\tExit\n";
+    cout << "\t|A| have " << A.get_height() << " rows and " << A.get_width() <<" coloums" <<
+            "\t|B| have " << B.get_height() << " rows and " << B.get_width() <<" coloums"<<endl;
+       
+                          setTextColor("green");
+                          cout << "\tOperations ->->  используйте стрелки и пробел" << endl;
+                          cout << "\tinput sizes of |A| and |B| (rows and colums <= 6)" << endl;             //первая строчка меню
+                          cout << "\tinput |A| or |B|" << endl;
+                          cout << "\t|A| += |B| " << endl <<
+                                  "\t|A| -= |B| " << endl <<
+                                  "\t|A| *= |B|" << endl <<
+                                  "\tExit" << endl;                     //последняя строчка меню
+                          setTextColor("white");
+                          
+                            setCursorPositionAbsolute(2, 85);
+                            print_two_matrix_InColumn(A, B, 'A', 'B');
+    short int check = IndicatorForMenu(3, 6);
 
-
-    short int check = IndicatorForMenu(3, 5);
-
+    
+    restoreCursorPosition();
+    int rows = 3 , cols = 3;
     switch (check){
 
-    case 1:
-
-        clear();
-        int rows, cols;
-        cin >> rows >> cols;
+    case 1:       
+        clear(); 
+        cout << "How many rows? ";
+        int element;
+        while (!(cin >> element)) {                                // Проверка ввода
+            cin.clear();                                          // Сброс состояния потока
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Очистка буфера ввода
+        }
+        if (element > 6) element = 6;
+        if (element < 1) element = 1;
+        rows = element;
+        cout << "How many colums?";
+        while (!(cin >> element)) {                                // Проверка ввода
+            cin.clear();                                          // Сброс состояния потока
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Очистка буфера ввода
+        }
+        if (element > 6) element = 6;
+        if (element < 1) element = 1;
+        cols = element;
+        
         A.resize_matrix(rows, cols);
-        B = A;        
+        B.resize_matrix(rows, cols);
         clear();
         return false;
 
     case 2:
 
-        clear();  
-       
-        A.input();
-        clear();
-        B.input();
-        clear();
-        A += B;
-        A.print();
-        system("pause");
-        clear();
-        return false;
-        
-
-    case 3:
-
-        clear();
-       
-        A.input();
-        clear();
-        B.input();
-        clear();
-        A -= B;
-        A.print();
-        system("pause");
-        clear();
-        return false;
-        
-
-    case 4:
-
-        clear();
-       
-        A.input();
-        clear();
-        B.input();
-        clear();
-        A *= B;
-        A.print();
-        system("pause");
-        clear();
-        return false;
-        
+     
 
     case 5:
 
-        return true;
+        clear();
+        cout << "You really wanna go out?  <y:n>";
+        if (getAnswer('y', 'n')) {
+            clear(); return true;
+        }
+        clear();
+        return false;
 
     default:
 
         return true;
-    }
-    
-    
-
-
-}
-
-
-
-
-void actionDeterminant() {
-
-	setTextColor("green");//для работы приложения без среды может потребоваться следующая команда		
-
-	//reg add HKCU\Console /v VirtualTerminalLevel /t REG_DWORD /d 1
-
-
-	Matrix A(3, 3);
-	A.input();
-	system("echo Нажмите любую клавишу для продолжения... && pause > nul");
-	clear();
-	A.print();
-	cout << endl;
-
-	A.detPrint();
-    cout << endl;
-
-
+    } 
 }

@@ -126,59 +126,32 @@ bool Matrix::operator==(const Matrix& other) const {
 	return true;			  // Все элементы совпадают, матрицы равны
 }
 
-
-void Matrix::print()
-{	
-	setCursorPositionAbsolute(3, 5);
-
-
-	for (int i = 0; i < rows; i++) {
-		
-		for (int j = 0; j < cols; j++) {
-
-			cout << " " << matrix[i][j] << " ";
-		}
-						
-		moveCursorDown();								// Перемещение курсора вниз
-
-								
-		setCursorPositionInLine(5);						// Возврат курсора в начало строки
-	}
+int Matrix::get_height() const
+{
+	return rows;
+}
+int Matrix::get_width() const
+{
+	return cols;
+}
+vector<vector<double>> Matrix::get_matrix()
+{
+	return matrix;
+}
+vector <vector <double>> Matrix::get_Triangle_matrix() {
+	return TrianglMatrix;
 }
 
-void Matrix::input()
+void Matrix::set_matrix(vector<vector<double>> matrix)
 {
-	clear();
-	cout << endl << " Матрица " << get_size() << " на " << get_size(1) << endl;
-	det = 1;
-	for (int i = 0; i < rows; i++) {
-		cout << "\t";
-		for (int j = 0; j < cols; j++) {
-
-			cin >> matrix[i][j];
-		}
-		cout << endl;
-	}
+	this->matrix = matrix;
 }
-
-void Matrix::detPrint()
+void Matrix::set_triangl_matrix(vector < vector < double >> TrianglMatrix) {
+	this->TrianglMatrix = TrianglMatrix;
+}
+void Matrix::set_det(long double det)
 {
-	determinant();
-	
-	setCursorPositionAbsolute(3, 20);		// Установка позиции курсора для вывода матрицы
-	
-	for (int i = 0; i < rows; i++) {		// Вывод элементов матрицы с помощью cout
-		cout << "->->    ";
-		for (int j = 0; j < cols; j++) {
-			std::cout << " " << TrianglMatrix[i][j] << " ";
-		}
-
-		moveCursorDown();					// Перемещение курсора вниз
-									
-		setCursorPositionInLine(20);		// Возврат курсора в начало строки(условной)
-	}
-	cout << endl;
-	det_show();
+	this->det = det;
 }
 
 void Matrix::resize_matrix(int rows, int cols)
@@ -201,58 +174,4 @@ void Matrix::resize_matrix(int rows, int cols)
 
 }
 
-
-
-void Matrix::det_show() const
-{
-	cout << endl << " Determinant = " << det << endl;
-}
-
-void Matrix::determinant()
-{
-	TrianglMatrix = matrix;
-	det = 1;
-
-	for (int i = 0; i < rows; ++i) {
-												// Если элемент на главной диагонали равен нулю, меняем строки
-		if (TrianglMatrix[i][i] == 0) {			//делить на ноль нельзя, ну хоть и можно но мы не будем
-			int swapRow = -1;
-			for (int j = i + 1; j < rows; ++j) {
-				if (TrianglMatrix[j][i] != 0) {
-					swapRow = j;
-					break;
-				}
-			}
-			if (swapRow == -1) {
-				det = 0;
-				return;
-			}
-			swap(TrianglMatrix[i], TrianglMatrix[swapRow]);
-			det *= -1;							// Меняем знак определителя при перестановке строк
-		}
-
-												// Приводим матрицу к верхнетреугольному виду
-		for (int j = i + 1; j < rows; ++j) {
-			double factor = TrianglMatrix[j][i] / TrianglMatrix[i][i];
-			for (int k = i; k < cols; ++k) {
-				TrianglMatrix[j][k] -= factor * TrianglMatrix[i][k];
-			}
-		}
-	}
-
-	for (int i = 0; i < rows; ++i) {
-		det *= TrianglMatrix[i][i];
-	}
-}
-
-vector<vector<double>> Matrix::get_matrix()
-{
-	return matrix;
-}
-
-int Matrix::get_size(bool vec) 
-{
-	if (vec) return cols;
-	return rows;	
-}
 

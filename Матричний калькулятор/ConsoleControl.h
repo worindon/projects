@@ -2,7 +2,13 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <vector>
 using namespace std;
+
+
+
+void restoreCursorPosition();
+void saveCursorPosition();
 
 
 void setCursorPositionAbsolute(int row, int col);
@@ -19,3 +25,4 @@ void setDefaultColor();
 void moveCursorDown();
 void indicator_on(const char sumbol[] = "  ");
 void indicator_off();
+void drawTableFrame(int numRows, int numCols);
