@@ -3,6 +3,7 @@
 #include <iomanip> // Для управления выводом формата
 #include "matrix.h"
 #include "ConsoleControl.h"
+//therefore
 
 void matrix_input(Matrix& matrix);
 void matrix_input_character_by_character(Matrix& matrix);
