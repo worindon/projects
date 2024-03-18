@@ -1,5 +1,6 @@
 #pragma once
 #include <conio.h>
+#include <iomanip> // Для управления выводом формата
 #include "matrix.h"
 #include "ConsoleControl.h"
 

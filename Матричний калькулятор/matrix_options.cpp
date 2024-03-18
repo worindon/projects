@@ -1,8 +1,4 @@
 ﻿#include "matrix_options.h"
-#include <iostream>
-#include <conio.h> // Для _kbhit() и _getch()
-#include <iomanip> // Для управления выводом формата
-#include "Matrix.h" // Подключите ваш файл с определением класса Matrix
 
 void matrix_input_character_by_character(Matrix& matrix)
 {
