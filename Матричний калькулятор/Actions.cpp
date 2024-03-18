@@ -1,6 +1,7 @@
 #include "Actions.h"
 #include <iomanip>
 
+
 bool getAnswer(char yes, char no) {
     char ch;
     // cout << "ѕожалуйста, введите 'y' или 'n': \t";
@@ -89,7 +90,7 @@ void actionResizeMatrix(Matrix& A, Matrix& B)
    // B.resize_matrix(rows, cols);
     B.resize_matrix(rows, cols);
     cout << "\n";
-    system("echo press any botton && pause");
+    system("echo press any botton && pause>nul");
 }
 
 void actionCelectMatrixForInput(Matrix& A, Matrix& B)
@@ -153,14 +154,14 @@ void actionMatrixAddition(Matrix& A, Matrix& B)
 {
     clear();
     print_two_matrix_non_multiplication(A, B, '+', '=');
-    system("echo press any botton && pause");
+    system("echo press any botton && pause>nul");
 }
 
 void actionMatrixSubtraction(Matrix& A, Matrix& B)
 {
     clear();
     print_two_matrix_non_multiplication(A, B, '-', '=');
-    system("echo press any botton && pause");
+    system("echo press any botton && pause>nul");
 }
 
 void actionMatrixMultiplication(Matrix& A, Matrix& B)
@@ -190,7 +191,7 @@ void actionMatrixMultiplication(Matrix& A, Matrix& B)
 
     setCursorPositionShiftDown(heigthA*3);
     setCursorPositionInLine(1);
-    system("echo press any botton && pause");
+    system("echo press any botton && pause>nul");
 
     
 }
@@ -306,7 +307,7 @@ bool main_menu(Matrix& A, Matrix& B) {
             clear();
             cout << "”множение невозможно, " <<
                 "количесво строчек первой матрицы не равно количеству строчек второй, измените матрицы на квадратные\n\n\n\n";
-            system("echo press any botton && pause"); return false;
+            system("echo press any botton && pause>nul"); return false;
         }
         actionMatrixMultiplication(A, B);
         return false;
@@ -315,6 +316,6 @@ bool main_menu(Matrix& A, Matrix& B) {
 
     default:
         clear();
-        cout << "Error nan ind parametr";
+        system("echo Error nan ind parametr && pause"); return false;
     }
 }
