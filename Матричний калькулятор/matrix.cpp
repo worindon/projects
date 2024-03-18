@@ -130,6 +130,9 @@ int Matrix::get_height() const
 {
 	return rows;
 }
+
+
+
 int Matrix::get_width() const
 {
 	return cols;

@@ -25,4 +25,3 @@ void setDefaultColor();
 void moveCursorDown();
 void indicator_on(const char sumbol[] = "  ");
 void indicator_off();
-void drawTableFrame(int numRows, int numCols);

@@ -1,5 +1,6 @@
 #include "Actions.h"
 #include <iomanip>
+
 bool getAnswer(char yes, char no) {
     char ch;
     // cout << "Пожалуйста, введите 'y' или 'n': \t";
@@ -56,135 +57,264 @@ int IndicatorForMenu(int zero_line, int end_poz) {
     // setCursorPositionInLine(41);
 
 }
-bool main_menu(Matrix& A, Matrix& B) {
-       
+
+void actionResizeMatrix(Matrix& A, Matrix& B)
+{
     clear();
-    cout << "\t|A| have " << A.get_height() << " rows and " << A.get_width() <<" coloums" <<
-            "\t|B| have " << B.get_height() << " rows and " << B.get_width() <<" coloums"<<endl;
-       
-                          setTextColor("green");
-                          cout << "\tOperations ->->  используйте стрелки" << endl;
-                          cout << "\tinput sizes of |A| and |B| (rows and colums <= 6)" << endl;             //первая строчка меню
-                          cout << "\tinput |A| or |B|" << endl;        //2
-                          cout << "\t|A| + |B| " << endl <<            //3
-                                  "\t|A| - |B| " << endl <<            //4
-                                  "\t|A| * |B|" << endl <<
-                                  "\tExit" << endl;                     //последняя строчка меню
-                          setTextColor("white");
-                          
-                            setCursorPositionAbsolute(2, 85);
-                            print_two_matrix_InColumn(A, B, 'A', 'B');
-    short int check = IndicatorForMenu(3, 6);
+    char ch;
+    cout << "Rows? ";
+    do {
+        ch = _getch();
+        cout << ch;
+        setCursorPositionInLine(7);
+
+    } while (!isdigit(ch));
+    int rows = atoi(&ch);
+    cout << "\n";
+    cout << "Colums? ";
+    do {
+        ch = _getch();
+        cout << ch;
+        setCursorPositionInLine(9);
+
+    } while (!isdigit(ch));
+    int cols = atoi(&ch);
+    if (rows > 6) rows = 6;
+    if (cols > 6) cols = 6;
+    if (rows < 1) rows = 1;
+    if (cols < 1) cols = 1;
+
+    A.resize_matrix(rows, cols);
+   // A.resize_matrix(rows, cols);
+   // B.resize_matrix(rows, cols);
+    B.resize_matrix(rows, cols);
+    cout << "\n";
+    system("echo press any botton && pause");
+}
+
+void actionCelectMatrixForInput(Matrix& A, Matrix& B)
+{
+    clear();
+    cout << "Select matrix ";
+    setTextColor("green");
+    cout << "|A|";
+    setTextColor("white");
+    cout << " or ";
+    cout << "|B|";
+
+    cout << "\t(press \'e\' for exit)";
+    char ch; int num = 0;
+    cerr << "\033[?25l";
+    while (true) {
+        ch = _getch();
+        if (ch == 'E' or ch == 'e') { cerr << "\033[?25h"; return; }
+        if (ch == 'K' && num) {
+            setCursorPositionInLine(22);
+            setTextColor("white");
+            cout << "|B|";
+            setCursorPositionInLine(15);
+            setTextColor("green");
+            cout << "|A|";
+            num--;
+            setTextColor("white");
+
+        }
+        else if (ch == 'M' && !num) {
+            setCursorPositionInLine(15);
+            setTextColor("white");
+            cout << "|A|";
+            setCursorPositionInLine(22);
+            setTextColor("green");
+            cout << "|B|";
+            setTextColor("white");
+            num++;
+        }
+        if (ch == '\r') {
+            cerr << "\033[?25h";
+            break;
+        }
+    }
+
+    switch (num)
+    {
+    case 0:
+        clear();
+        matrix_input(A);
+        break;
+    case 1:
+        clear();
+        matrix_input(B);
+        break;
+    }
+
+}
+
+void actionMatrixAddition(Matrix& A, Matrix& B)
+{
+    clear();
+    print_two_matrix_non_multiplication(A, B, '+', '=');
+    system("echo press any botton && pause");
+}
+
+void actionMatrixSubtraction(Matrix& A, Matrix& B)
+{
+    clear();
+    print_two_matrix_non_multiplication(A, B, '-', '=');
+    system("echo press any botton && pause");
+}
+
+void actionMatrixMultiplication(Matrix& A, Matrix& B)
+{
+    clear();
+    int widthA = A.get_width(), heigthA = A.get_height(),
+        widthB = B.get_width(), heigthB = B.get_height();
+
+    if (heigthB > heigthA) setCursorPositionShiftDown((heigthB - heigthA + 5) / 2);
+
+
+    matrix_print(A);
+    setCursorPositionShiftDown(heigthA);
+    setCursorPositionShiftRight(widthA * 9 + 1);
+    cout << " * ";
+
+
+    if (heigthB >= heigthA) setCursorPositionShiftUp((heigthB * 2 + 1) / 2);
+    if(heigthA > heigthB) setCursorPositionShiftUp((heigthA - heigthB) / 2);
+    matrix_print(B);
+    setCursorPositionShiftDown(heigthB);
+    setCursorPositionShiftRight(widthB * 9 + 1);
+    A *= B;
+    cout << " = ";
+    setCursorPositionShiftUp((A.get_height()*2 + 1) / 2);
+    matrix_print(A);
+
+    setCursorPositionShiftDown(heigthA*3);
+    setCursorPositionInLine(1);
+    system("echo press any botton && pause");
 
     
-    int rows = 3, cols = 3; char ch = '*';   int num = 0; char temp1;
-    switch (check){
+}
 
-    case 1:       
+void actionCelectMatrixForInputSeparateNumbers(Matrix& A, Matrix& B) {
+    clear();
+    cout << "Select matrix ";
+    setTextColor("green");
+    cout << "|A|";
+    setTextColor("white");
+    cout << " or ";
+    cout << "|B|";
+
+    cout << "\t(press \'e\' for exit)";
+    char ch; int num = 0;
+    cerr << "\033[?25l";
+    while (true) {
+        ch = _getch();
+        if (ch == 'E' or ch == 'e') { cerr << "\033[?25h"; return; }
+        if (ch == 'K' && num) {
+            setCursorPositionInLine(22);
+            setTextColor("white");
+            cout << "|B|";
+            setCursorPositionInLine(15);
+            setTextColor("green");
+            cout << "|A|";
+            num--;
+            setTextColor("white");
+
+        }
+        else if (ch == 'M' && !num) {
+            setCursorPositionInLine(15);
+            setTextColor("white");
+            cout << "|A|";
+            setCursorPositionInLine(22);
+            setTextColor("green");
+            cout << "|B|";
+            setTextColor("white");
+            num++;
+        }
+        if (ch == '\r') {
+            cerr << "\033[?25h";
+            break;
+        }
+    }
+
+    switch (num)
+    {
+    case 0:
         clear();
-        cout << "Rows? ";
-        do {
-            ch = _getch();
-            cout << ch;
-            setCursorPositionInLine(7);
-
-        } while (!isdigit(ch));
-        rows = atoi(&ch);
-        cout << "\n";
-        cout << "Colums? ";
-        do {
-            ch = _getch();
-            cout << ch;
-            setCursorPositionInLine(9);
-
-        } while (!isdigit(ch));
-        cols = atoi(&ch);
-        if (rows > 6) rows = 6;
-        if (cols > 6) cols = 6;
-        if (rows < 1) rows = 1;
-        if (cols < 1) cols = 1;
-
-        A.resize_matrix(rows, cols);
-        A.resize_matrix(rows, cols);
-        B.resize_matrix(rows, cols);
-        B.resize_matrix(rows, cols);
+        matrix_input_character_by_character(A);
+        break;
+    case 1:
         clear();
+        matrix_input_character_by_character(B);
+        break;
+    }
+
+}
+
+bool actionExit()
+{
+    clear();
+    cout << "You really wanna go out?  <y:n>";
+    if (getAnswer('y', 'n')) {
+        clear(); return true;
+    }
+    clear();
+    return false;
+
+}
+
+bool main_menu(Matrix& A, Matrix& B) {
+
+    clear();
+    cout << "\t|A| have " << A.get_height() << " rows and " << A.get_width() << " coloums" <<
+        "\t|B| have " << B.get_height() << " rows and " << B.get_width() << " coloums" << endl;
+
+    setTextColor("green");
+    cout << "\tOperations ->->  используйте стрелки" << endl;
+    cout << "\tinput sizes of |A| and |B| (rows and colums <= 6)" << endl;//первая строчка меню
+    cout << "\tinput |A| or |B| in serial mode "<< endl;                                 //2
+    cout << "\tinput |A| or |B| in manual mode" << endl;
+    cout << "\t|A| + |B| " << endl <<                                     //4
+        "\t|A| - |B| " << endl <<                                     //5
+        "\t|A| * |B|" << endl <<
+        "\tExit" << endl;                                             //последняя строчка меню
+    setTextColor("white");
+
+    setCursorPositionAbsolute(2, 85);
+    print_two_matrix_InColumn(A, B, 'A', 'B');
+    short int check = IndicatorForMenu(3, 7); // в аргументах начальная строчка(абсолютная в консоли)
+    //  и количество пунктов меню   
+    switch (check) {
+
+    case 1:
+        actionResizeMatrix(A, B);
         return false;
     case 2:
-        clear();   
-        cout << "Select matrix ";
-        setTextColor("green");
-        cout << "|A|";
-        setTextColor("white");
-        cout << " or ";     
-        cout << "|B|";
-
-        cout << "\t(press \'e\' for exit)";
-        
-        cerr << "\033[?25l"; 
-        while (true) {
-            ch = _getch();
-            if (ch == 'E' or ch == 'e') { cerr << "\033[?25h"; return false; }
-            if (ch == 'K' && num) {  
-                setCursorPositionInLine(22);
-                setTextColor("white");
-                cout << "|B|";
-                setCursorPositionInLine(15);
-                setTextColor("green");
-                cout << "|A|";
-                num--;
-
-            }
-            else if (ch == 'M'  && !num) {    
-                setCursorPositionInLine(15);
-                setTextColor("white");
-                cout << "|A|";
-                setCursorPositionInLine(22);
-                setTextColor("green");
-                cout << "|B|";
-                setTextColor("white");
-                num++;
-            }
-            if (ch == '\r') {
-                cerr << "\033[?25h";
-                break;
-            }
-        }
-
-        switch (num)
-        {
-        case 0:
-            clear();
-            matrix_input(A);
-            return false;
-        case 1:
-            clear();
-            matrix_input(B);
-            return false;
-        }
+        actionCelectMatrixForInput(A, B);
+        return false;
     case 3:
-        clear();
-        print_two_matrix_non_multiplication(A, B, '+', '=');
-        system("echo press any botton && pause");
+        actionCelectMatrixForInputSeparateNumbers(A, B);
         return false;
     case 4:
-        clear();
-        print_two_matrix_non_multiplication(A, B, '-', '=');
-        system("echo press any botton && pause");
+        actionMatrixAddition(A, B);
         return false;
-
+    case 5:
+        actionMatrixSubtraction(A, B);
+        return false;
     case 6:
-
-        clear();
-        cout << "You really wanna go out?  <y:n>";
-        if (getAnswer('y', 'n')) {
-            clear(); return true;
+        if (A.get_width() != B.get_height()) {
+            clear();
+            cout << "Умножение невозможно, " <<
+                "количесво строчек первой матрицы не равно количеству строчек второй, измените матрицы на квадратные\n\n\n\n";
+            system("echo press any botton && pause"); return false;
         }
-        clear();
+        actionMatrixMultiplication(A, B);
         return false;
+    case 7:
+        return actionExit();
 
     default:
         clear();
-        return true;
-    } 
+        cout << "Error nan ind parametr";
+    }
 }

@@ -1,21 +1,90 @@
-#include "matrix_options.h"
+﻿#include "matrix_options.h"
+#include <iostream>
+#include <conio.h> // Для _kbhit() и _getch()
+#include <iomanip> // Для управления выводом формата
+#include "Matrix.h" // Подключите ваш файл с определением класса Matrix
 
-void matrix_input(Matrix& matrix)
+void matrix_input_character_by_character(Matrix& matrix)
 {
+	clear();
 
+	int rows = matrix.get_height();
+	int cols = matrix.get_width();
+	matrix.set_det(1);
+
+	int currentRow = 0; // Текущая строка
+	int currentCol = 0; // Текущий столбец
+
+	cout << endl << " Матрица " << rows << " на " << cols << std::endl;
+	cerr << "\033[?25l";
+	while (true) {
+		clear(); // Очистка экрана перед каждым обновлением
+
+		// Отображение матрицы
+		for (int i = 0; i < rows; ++i) {
+			for (int j = 0; j < cols; ++j) {
+				if (i == currentRow && j == currentCol) {
+					cout << "[" << setw(6) << matrix[i][j] << "]";
+				}
+				else {
+					cout << " " << setw(6) << matrix[i][j] << " ";
+				}
+			}
+			cout << endl;
+		}
+
+		cout << "\n Используйте клавиши управления для перемещения по матрице." <<  endl;
+		cout << " Нажмите Enter для ввода значения. Нажмите 'E' для завершения." << endl;
+
+		char ch = _getch(); // Получение нажатой клавиши
+
+		if (ch == 'E' || ch == 'e') {
+			break; // Завершить ввод матрицы
+		}
+		if (ch == '\r') { // Если нажата клавиша Enter
+			cout << "\n Введите значение: ";
+			double element;
+			while (!(cin >> element)) {
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			}
+			matrix[currentRow][currentCol] = element;
+		}
+		if (ch == 'H' && currentRow > 0) { // Стрелка вверх
+			currentRow--;
+					
+		}
+		if (ch == 'P' && currentRow < rows - 1) { // Стрелка вниз
+			currentRow++;
+					
+		}
+		if (ch == 'K' && currentCol > 0) { // Стрелка влево
+			currentCol--;
+					
+		}
+		if (ch == 'M' && currentCol < cols - 1) { 
+			currentCol++;
+					
+		}
+		
+	}
+	cerr << "\033[?25h";
+}
+
+void matrix_input(Matrix& matrix){
 	clear();
 	int rows = matrix.get_height();
 	int cols = matrix.get_width();
 	matrix.set_det(1);
-	cout << endl << " ������� " << rows << " �� " << cols << endl;
-	
-	
+	cout << endl << " Матрица " << rows << " на " << cols << endl;
+
+
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < cols; j++) {
 			double element;
-			while (!(cin >> element)) { // �������� �����
-				cin.clear();			// ����� ��������� ������
-				cin.ignore(numeric_limits<streamsize>::max(), '\n'); // ������� ������ �����
+			while (!(cin >> element)) { 
+				cin.clear();			
+				cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
 
 			}
 			matrix[i][j] = element;
@@ -103,10 +172,10 @@ bool matrix_gausse_method(Matrix& matrix)
 				return false;
 			}
 			swap(trimatrix[i], trimatrix[swapRow]);
-			det *= -1;							// ������ ���� ������������ ��� ������������ �����
+			det *= -1;							// Меняем знак определителя при перестановке строк
 		}
 
-		// �������� ������� � ������������������ ����
+		// Приводим матрицу к верхнетреугольному виду
 		for (int j = i + 1; j < rows; ++j) {
 			double factor = trimatrix[j][i] / trimatrix[i][i];
 			for (int k = i; k < cols; ++k) {
@@ -178,4 +247,38 @@ void print_two_matrix_InColumn(Matrix A, Matrix B, const char ch, const char chr
 	cout << "\033[5D";
 	cout << '|' << chr << "|= ";	
 	matrix_print(B);	
+}
+
+// Функция для отрисовки рамки таблицы
+void drawTableFrame(int numRows, int numCols) {
+	// Верхняя горизонтальная линия
+	setTextColor("green");
+	saveCursorPosition();
+	cout << "+";
+	for (int i = 0; i < numCols; ++i) {
+		cout << "--------+";
+	}
+
+
+	int k = 1;
+	for (int i = 0; i < numRows; i++, k++) {
+
+		restoreCursorPosition();
+		setCursorPositionShiftDown(i + k);
+
+		cout << "|";
+		for (int j = 0; j < numCols; ++j) {
+			cout << "        |";
+		}
+		restoreCursorPosition();
+		setCursorPositionShiftDown(i + k + 1);
+
+
+		cout << "+";
+		for (int j = 0; j < numCols; ++j) {
+			cout << "--------+";
+		}
+
+	}
+	setTextColor("white");
 }

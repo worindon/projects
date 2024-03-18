@@ -1,7 +1,5 @@
 #pragma once
-
 #include "ConsoleControl.h"
-
 class Matrix
 {
 public:
@@ -12,11 +10,11 @@ public:
 
 	void resize_matrix(int rows, int cols);
 
-
-	
-	
 	int get_height() const;
 	int get_width() const;
+	
+	
+	
 	vector <vector <double>> get_matrix();
 	vector <vector <double>> get_Triangle_matrix();
 

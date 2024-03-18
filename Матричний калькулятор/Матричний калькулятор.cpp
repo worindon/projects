@@ -1,8 +1,9 @@
 ﻿#include <windows.h>
 #include "Actions.h"
-#include <cctype>
-
 int main() {
+
+    SetConsoleTitle(L"Матричный калькулятор");
+
     // Получаем дескриптор консольного окна
     HWND consoleWindow = GetConsoleWindow();
 
@@ -16,15 +17,9 @@ int main() {
     SetWindowLong(consoleWindow, GWL_STYLE, GetWindowLong(consoleWindow, GWL_STYLE) & ~WS_SIZEBOX);
 
     setlocale(LC_ALL, "ru");
-    Matrix A(3, 3);
-    Matrix B(3, 3);
-   
+    Matrix A(6, 6);
+    Matrix B(6, 6);
     while(!main_menu(A, B)){}
-    cout << "\n\t";    
+    
     return 0;
 }
-
-
-    
-      
-   
