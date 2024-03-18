@@ -11,7 +11,7 @@ void matrix_input_character_by_character(Matrix& matrix)
 	int currentRow = 0; // Текущая строка
 	int currentCol = 0; // Текущий столбец
 
-	cout << endl << " Матрица " << rows << " на " << cols << std::endl;
+	cout << endl << " Матрица " << rows << " на " << cols << endl;
 	cerr << "\033[?25l";
 	while (true) {
 		clear(); // Очистка экрана перед каждым обновлением

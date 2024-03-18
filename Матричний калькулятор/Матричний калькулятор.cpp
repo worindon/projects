@@ -1,6 +1,8 @@
 ﻿#include <windows.h>
 #include "Actions.h"
+
 int main() {
+
     system("chcp 1251");
     SetConsoleTitle(L"Матричный калькулятор");
 
@@ -19,7 +21,7 @@ int main() {
     //setlocale(LC_ALL, "ru");
     Matrix A(6, 6);
     Matrix B(6, 6);
-    while(!main_menu(A, B)){}
-    
+    while(!actionMain_menu(A, B)){}
+    //therefore
     return 0;
 }

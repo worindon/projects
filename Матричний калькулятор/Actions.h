@@ -5,9 +5,9 @@ bool getAnswer(char yes, char no);
 
 //void actionDeterminant();
 
-int IndicatorForMenu(int zero_line, int end_poz);
+int actionIndicatorForMenu(int zero_line, int end_poz);
 
-bool main_menu(Matrix& A, Matrix& B);
+bool actionMain_menu(Matrix& A, Matrix& B);
 
 void actionResizeMatrix(Matrix& A, Matrix& B);
 
