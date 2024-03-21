@@ -129,17 +129,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Actions.cpp" />
-    <ClCompile Include="ConsoleControl.cpp" />
-    <ClCompile Include="matrix.cpp" />
-    <ClCompile Include="matrix_options.cpp" />
-    <ClCompile Include="Матричний калькулятор.cpp" />
+    <ClCompile Include="Sourse code\modules\actions\additionalActions.cpp" />
+    <ClCompile Include="Sourse code\modules\actions\mainAction\mainAction.cpp" />
+    <ClCompile Include="Sourse code\modules\options\console\ConsoleControl.cpp" />
+    <ClCompile Include="Sourse code\modules\matrix\matrix.cpp" />
+    <ClCompile Include="Sourse code\modules\options\matrix\matrix_options.cpp" />
+    <ClCompile Include="Sourse code\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ConsoleControl.h" />
-    <ClInclude Include="Actions.h" />
-    <ClInclude Include="matrix_options.h" />
-    <ClInclude Include="matrix.h" />
+    <ClInclude Include="Sourse code\modules\actions\mainAction\mainAction.h" />
+    <ClInclude Include="Sourse code\modules\options\console\ConsoleControl.h" />
+    <ClInclude Include="Sourse code\modules\actions\additionalActions.h" />
+    <ClInclude Include="Sourse code\modules\options\matrix\matrix_options.h" />
+    <ClInclude Include="Sourse code\modules\matrix\matrix.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

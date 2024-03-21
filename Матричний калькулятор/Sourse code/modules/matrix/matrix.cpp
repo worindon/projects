@@ -1,5 +1,4 @@
 #include "Matrix.h"
-#include "ConsoleControl.h"
 
 
 Matrix::Matrix(int rows, int cols)
@@ -12,6 +11,17 @@ Matrix::Matrix(int rows, int cols)
 
 	
 }
+
+Matrix::Matrix(){
+
+	matrix.resize(3, vector<double>(3));
+	this->TrianglMatrix = this->matrix;
+
+}
+
+
+
+
 
 Matrix& Matrix::operator=(const Matrix& other) {
 	if (this != &other) {
@@ -141,6 +151,7 @@ vector<vector<double>> Matrix::get_matrix()
 {
 	return matrix;
 }
+
 vector <vector <double>> Matrix::get_Triangle_matrix() {
 	return TrianglMatrix;
 }

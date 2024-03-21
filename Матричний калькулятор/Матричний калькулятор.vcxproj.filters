@@ -15,33 +15,39 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Матричний калькулятор.cpp">
+    <ClCompile Include="Sourse code\main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="matrix.cpp">
+    <ClCompile Include="Sourse code\modules\matrix\matrix.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="ConsoleControl.cpp">
+    <ClCompile Include="Sourse code\modules\options\console\ConsoleControl.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Actions.cpp">
+    <ClCompile Include="Sourse code\modules\actions\additionalActions.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="matrix_options.cpp">
+    <ClCompile Include="Sourse code\modules\options\matrix\matrix_options.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Sourse code\modules\actions\mainAction\mainAction.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="matrix.h">
+    <ClInclude Include="Sourse code\modules\matrix\matrix.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="ConsoleControl.h">
+    <ClInclude Include="Sourse code\modules\options\console\ConsoleControl.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Actions.h">
+    <ClInclude Include="Sourse code\modules\actions\additionalActions.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="matrix_options.h">
+    <ClInclude Include="Sourse code\modules\options\matrix\matrix_options.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Sourse code\modules\actions\mainAction\mainAction.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

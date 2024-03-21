@@ -1,12 +1,11 @@
 #pragma once
-#include "ConsoleControl.h"
+#include "../options/console/ConsoleControl.h"
 class Matrix
 {
 public:
 
-	Matrix(int rows, int cols = 1);
-	
-	
+	Matrix(int rows, int cols);
+	Matrix();
 
 	void resize_matrix(int rows, int cols);
 
@@ -37,7 +36,7 @@ public:
 private:
 
 	long double det = 1; 
-	int rows, cols; 
+	int rows=3, cols=3; 
 	vector < vector < double >> matrix;
 	vector < vector < double >> TrianglMatrix;
 

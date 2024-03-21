@@ -29,7 +29,7 @@ void matrix_input_character_by_character(Matrix& matrix)
 			cout << endl;
 		}
 
-		cout << "\n Используйте клавиши управления для перемещения по матрице." <<  endl;
+		cout << "\n Используйте клавиши управления для перемещения по матрице." << endl;
 		cout << " Нажмите Enter для ввода значения. Нажмите 'E' для завершения." << endl;
 
 		char ch = _getch(); // Получение нажатой клавиши
@@ -48,21 +48,21 @@ void matrix_input_character_by_character(Matrix& matrix)
 		}
 		if (ch == 'H' && currentRow > 0) { // Стрелка вверх
 			currentRow--;
-					
+
 		}
 		if (ch == 'P' && currentRow < rows - 1) { // Стрелка вниз
 			currentRow++;
-					
+
 		}
 		if (ch == 'K' && currentCol > 0) { // Стрелка влево
 			currentCol--;
-					
+
 		}
-		if (ch == 'M' && currentCol < cols - 1) { 
+		if (ch == 'M' && currentCol < cols - 1) {
 			currentCol++;
-					
+
 		}
-		
+
 	}
 	cerr << "\033[?25h";
 }
@@ -87,6 +87,9 @@ void matrix_input(Matrix& matrix){
 
 		}
 	}
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
 }
 
 void matrix_print(Matrix& matrix)
@@ -107,7 +110,6 @@ void matrix_print(Matrix& matrix)
 		setCursorPositionShiftDown(2*(i+1) - 1);
 		setCursorPositionShiftRight(1 + j * 10 - j);
 		cout << matrix[i][j];
-			
 		}
 		
 		setCursorPositionShiftDown(i+1);
@@ -137,7 +139,7 @@ void matrix_print(vector<vector<double>>  matrix)
 	}
 	
 	
-	
+	restoreCursorPosition();
 }
 
 bool matrix_gausse_method(Matrix& matrix)
@@ -187,22 +189,17 @@ bool matrix_gausse_method(Matrix& matrix)
 		det *= trimatrix[i][i];
 	}
 	matrix.set_det(det);
-	cout << "Determinant = " << det;
 	return true;
 
 }
 
-void print_folder(int rows, int cols) {
+void matrix_inverse(Matrix& matrix) {
 
-	cout << string(5 * cols, '-') << endl;
-	for (int i = 0; i < rows; i++) {
+	matrix_gausse_method(matrix);
+	matrix_print(matrix.get_Triangle_matrix());
+	setCursorPositionShiftDown(15);
 
-		for (int j = 0; j < cols; j++) {
-			cout << "|     ";
-		}
-		cout << endl << string(5 * cols, '-') << endl;
-	
-	}
+	system("echo press any botton && pause>nul");
 
 }
 
@@ -242,7 +239,7 @@ void print_two_matrix_InColumn(Matrix A, Matrix B, const char ch, const char chr
 	setCursorPositionShiftDown(A.get_height() * 2 + 1);
 	cout << "\033[5D";
 	cout << '|' << chr << "|= ";	
-	matrix_print(B);	
+	matrix_print(B);
 }
 
 // Функция для отрисовки рамки таблицы
