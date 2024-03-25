@@ -149,7 +149,7 @@ void actionInputMatrixInSerealMode(Matrix& A, Matrix& B)
 
 }
 
-void actionSelectMatrixForDeterminant(Matrix& A, Matrix& B){
+void actionMatrixDeterminant(Matrix& A, Matrix& B){
 
     clear();
     cout << "Select matrix ";
@@ -196,11 +196,11 @@ void actionSelectMatrixForDeterminant(Matrix& A, Matrix& B){
     {
     case 0:
         clear();
-        matrix_inverse(A);
+        matrix_det(A);
         break;
     case 1:
         clear();
-        matrix_inverse(B);
+        matrix_det(B);
         break;
     }
 }

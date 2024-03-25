@@ -6,7 +6,8 @@ bool getAnswer(char yes, char no);
 //void actionDeterminant();
 
 int actionIndicatorForMenu(int zero_line, int end_poz);
-void actionSelectMatrixForDeterminant(Matrix& A, Matrix& B);
+
+void actionMatrixDeterminant(Matrix& A, Matrix& B);
 
 bool actionMain_menu(Matrix& A, Matrix& B);
 
@@ -24,3 +25,4 @@ void actionMatrixMultiplication(Matrix& A, Matrix& B);
 bool actionExit();
 
 void actionInputMatrixInManualMode(Matrix& A, Matrix& B);
+

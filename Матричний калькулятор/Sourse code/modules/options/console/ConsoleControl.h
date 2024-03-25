@@ -6,8 +6,6 @@
 
 using namespace std;
 
-
-
 void restoreCursorPosition();
 void saveCursorPosition();
 

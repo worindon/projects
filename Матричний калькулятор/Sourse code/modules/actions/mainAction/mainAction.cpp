@@ -25,7 +25,7 @@ bool actionMain_menu(Matrix& A, Matrix& B) {
     print_two_matrix_InColumn(A, B, 'A', 'B');
 
     short int check = actionIndicatorForMenu(3, 8); // в аргументах начальная строчка(абсолютная в консоли)
-                                                    //  и количество пунктов меню   
+       //  и количество пунктов меню   
 
     switch (check) {
 
@@ -48,7 +48,7 @@ bool actionMain_menu(Matrix& A, Matrix& B) {
         actionMatrixMultiplication(A, B);
         return false;
     case 7:
-        actionSelectMatrixForDeterminant(A, B);
+        actionMatrixDeterminant(A, B);
         return false;
     case 8:
         return actionExit();

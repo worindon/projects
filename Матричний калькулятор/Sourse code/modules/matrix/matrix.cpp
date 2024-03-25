@@ -156,6 +156,11 @@ vector <vector <double>> Matrix::get_Triangle_matrix() {
 	return TrianglMatrix;
 }
 
+int Matrix::get_det()
+{
+	return this->det;
+}
+
 void Matrix::set_matrix(vector<vector<double>> matrix)
 {
 	this->matrix = matrix;

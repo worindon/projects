@@ -16,6 +16,7 @@ public:
 	
 	vector <vector <double>> get_matrix();
 	vector <vector <double>> get_Triangle_matrix();
+	int get_det();
 
 	void set_matrix(vector < vector < double >> matrix);
 	void set_det(long double det = 1);

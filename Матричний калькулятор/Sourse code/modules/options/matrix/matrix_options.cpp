@@ -193,19 +193,37 @@ bool matrix_gausse_method(Matrix& matrix)
 
 }
 
-void matrix_inverse(Matrix& matrix) {
+bool isTriangular(vector<vector<double>> vec)
+{
+	int len = vec.size();
+	for (int i = 1; i < len; ++i) {
+		for (int j = 0; j < i; ++j) {
+			if (vec[i][j]) return false;
+		}
+	}
+	return true;
+}
 
-	matrix_gausse_method(matrix);
-	matrix_print(matrix.get_Triangle_matrix());
-	setCursorPositionShiftDown(15);
-
+void matrix_det(Matrix Mat) {
+	cout << '\t';
+	matrix_print(Mat);
+	setCursorPositionShiftRight(Mat.get_width() * 9 + 1);
+	saveCursorPosition();
+	setCursorPositionShiftDown(Mat.get_height());
+	cout << "  >  ";
+	restoreCursorPosition();
+	setCursorPositionShiftRight(5);
+	matrix_gausse_method(Mat);
+	bool fl = isTriangular(Mat.get_Triangle_matrix());
+	matrix_print(Mat.get_Triangle_matrix());
+	setCursorPositionShiftDown(Mat.get_height() * 2 + 1);
+	if (!fl) cout << "The matrix cannot be reduced to triangular form" << endl;	
+	cout << "Determinant = " << Mat.get_det() * fl << endl << '\t';
 	system("echo press any botton && pause>nul");
 
 }
 
 void print_two_matrix_non_multiplication(Matrix &A, Matrix &B, const char ch, const char chr) {
-
-
 	
 	matrix_print(A);
 	setCursorPositionShiftRight(A.get_width()*9 + 1 );
@@ -228,8 +246,7 @@ void print_two_matrix_non_multiplication(Matrix &A, Matrix &B, const char ch, co
 	matrix_print(A);
 	setCursorPositionShiftDown(A.get_width() * 2 + 1);
 	setCursorPositionShiftDown(A.get_height() * 2 + 1);
-	cout << '\n';
-	
+	cout << '\n';	
 
 }
 

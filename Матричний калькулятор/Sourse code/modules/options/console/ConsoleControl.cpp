@@ -3,18 +3,16 @@
 
 void setCursorPositionAbsolute(int row, int col) {
 
-	ostringstream oss;
-	oss << "\033[" << row << ";" << col << "H";
-	const string ansi_sequence = oss.str();
-	cerr << ansi_sequence;
+
+	cerr <<  "\033[" << row << ";" << col << "H";
+	
+	
 }
 
 void setCursorPositionInLine(int col) {
 
-	ostringstream oss;
-	oss << "\033[" << col << "G";
-	const string ansi_sequence = oss.str();
-	cerr << ansi_sequence;
+	
+ 	cerr <<"\033[" << col << "G";
 
 }
 
@@ -39,10 +37,10 @@ void clearOurAllLine()
 
 void setCursorPositionShiftDown(int row) {
 
-	ostringstream oss;
-	oss << "\033[" << row << "B";
-	const string ansi_sequence = oss.str();
-	cerr << ansi_sequence;
+	
+	cerr << "\033[" << row << "B";
+	
+	
 
 }
 
