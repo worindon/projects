@@ -205,6 +205,12 @@ bool isTriangular(vector<vector<double>> vec)
 }
 
 void matrix_det(Matrix Mat) {
+	if (Mat.get_width() != Mat.get_height()) {
+		clear();
+		cout << "Матрица не квадратная, " <<
+			"количесво строчек не равно количеству столбцов, измените матрицу на квадратную\n\n\n\n";
+		system("echo press any botton && pause>nul"); return;
+	}
 	cout << '\t';
 	matrix_print(Mat);
 	setCursorPositionShiftRight(Mat.get_width() * 9 + 1);
@@ -259,9 +265,7 @@ void print_two_matrix_InColumn(Matrix A, Matrix B, const char ch, const char chr
 	matrix_print(B);
 }
 
-// Функция для отрисовки рамки таблицы
 void drawTableFrame(int numRows, int numCols) {
-	// Верхняя горизонтальная линия
 	setTextColor("green");
 	saveCursorPosition();
 	cout << "+";
@@ -288,7 +292,6 @@ void drawTableFrame(int numRows, int numCols) {
 		for (int j = 0; j < numCols; ++j) {
 			cout << "--------+";
 		}
-
 	}
 	setTextColor("white");
 }

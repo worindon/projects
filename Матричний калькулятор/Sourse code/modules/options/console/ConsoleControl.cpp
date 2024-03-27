@@ -18,11 +18,7 @@ void setCursorPositionInLine(int col) {
 
 void setCursorPositionShiftUp(int row) {
 
-	ostringstream oss;
-	oss << "\033[" << row << "A";
-	const string ansi_sequence = oss.str();
-	cerr << ansi_sequence;
-
+	cerr <<  "\033[" << row << "A";
 }
 
 void setCursorShiftUpOneLine() {
@@ -39,9 +35,6 @@ void setCursorPositionShiftDown(int row) {
 
 	
 	cerr << "\033[" << row << "B";
-	
-	
-
 }
 
 void setCursorPositionShiftRight(int offset) {
@@ -113,23 +106,17 @@ void setDefaultColor() {
 void moveCursorDown() {
 
 	cerr << "\033[B";
-
 }
 
-void indicator_on(const char sumbol[]) {
-
-
-	
+void indicator_on(const char sumbol[]) {	
 	setCursorPositionInLine(1);
 	setFoneColor("green");
 	cout <<"   " << sumbol << " ";
 	setCursorPositionInLine(1);
 	setFoneColor("black");
-
 }
 
 void indicator_off() {
-
 	setCursorPositionInLine( 1);
 	//setFoneColor("black");
 	cout << "       ";
@@ -143,4 +130,3 @@ void saveCursorPosition() {
 void restoreCursorPosition() {
 	printf("\033[u"); // ANSI escape sequence для восстановления позиции курсора
 }
-

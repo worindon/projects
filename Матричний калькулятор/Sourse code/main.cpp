@@ -1,6 +1,8 @@
 ﻿#include <windows.h>
 #include "modules/actions/mainAction/mainAction.h"
 
+
+
 int main() {
 
 	system("chcp 1251");
@@ -20,11 +22,8 @@ int main() {
 	SetWindowLong(consoleWindow, GWL_STYLE, GetWindowLong(consoleWindow, GWL_STYLE) & ~WS_SIZEBOX);
 
 	Matrix A;
-	Matrix B;	
+	Matrix B;
 
-	
-	
-	
 	while (!actionMain_menu(A, B)) { cin.clear(); }
 
 	return 0;

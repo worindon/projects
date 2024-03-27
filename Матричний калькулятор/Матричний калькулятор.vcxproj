@@ -134,7 +134,9 @@
     <ClCompile Include="Sourse code\modules\options\console\ConsoleControl.cpp" />
     <ClCompile Include="Sourse code\modules\matrix\matrix.cpp" />
     <ClCompile Include="Sourse code\modules\options\matrix\matrix_options.cpp" />
-    <ClCompile Include="Sourse code\main.cpp" />
+    <ClCompile Include="Sourse code\main.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/utf-8 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sourse code\modules\actions\mainAction\mainAction.h" />

@@ -147,6 +147,7 @@ int Matrix::get_width() const
 {
 	return cols;
 }
+
 vector<vector<double>> Matrix::get_matrix()
 {
 	return matrix;
@@ -156,7 +157,7 @@ vector <vector <double>> Matrix::get_Triangle_matrix() {
 	return TrianglMatrix;
 }
 
-int Matrix::get_det()
+double Matrix::get_det()
 {
 	return this->det;
 }
@@ -192,5 +193,3 @@ void Matrix::resize_matrix(int rows, int cols)
 	this->matrix = newMatrix;
 
 }
-
-
