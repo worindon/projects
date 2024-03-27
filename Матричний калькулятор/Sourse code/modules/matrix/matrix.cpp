@@ -4,10 +4,10 @@
 Matrix::Matrix(int rows, int cols)
 {
 
-		this->rows = rows;							//количество строчек
-		this->cols = cols;							//количество столбиков
+		this->rows = rows;						   //количество строчек
+		this->cols = cols;						   //количество столбиков
 
-		matrix.resize(rows, vector<double>(cols));  //изменяем масив под нужный размер 
+		matrix.resize(rows, vector<double>(cols)); //изменяем масив под нужный размер 
 
 	
 }
