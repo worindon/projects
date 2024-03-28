@@ -322,5 +322,4 @@ bool actionExit()
     }
     clear();
     return false;
-
 }

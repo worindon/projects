@@ -8,7 +8,6 @@ Matrix::Matrix(int rows, int cols)
 		this->cols = cols;						   //количество столбиков
 
 		matrix.resize(rows, vector<double>(cols)); //изменяем масив под нужный размер 
-
 	
 }
 

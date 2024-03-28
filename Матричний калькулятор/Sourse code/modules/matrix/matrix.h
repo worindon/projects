@@ -1,5 +1,6 @@
 #pragma once
 #include "../options/console/ConsoleControl.h"
+
 class Matrix
 {
 public:
@@ -33,17 +34,13 @@ public:
 	vector<double>& operator[](int index);
 	bool operator==(const Matrix& other) const;
 
-	;
+
+;
 private:
 
 	double det = 1; 
 	int rows=3, cols=3; 
 	vector < vector < double >> matrix;
 	vector < vector < double >> TrianglMatrix;
-
-	
-	
-
-
 };
 
